@@ -297,10 +297,10 @@ class PatientService
 
     /**
      * @param $request
-     * @return int
+     * @return int|array
      */
 
-    public function getWeightLoseGoalDetailsByMobileNumber($request): int
+    public function getWeightLoseGoalDetailsByMobileNumber($request): int|array
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getWeightLoseGoalDetailsByMobileNumber($mobile_number);
@@ -324,10 +324,10 @@ class PatientService
 
     /**
      * @param $request
-     * @return int
+     * @return int|array
      */
 
-    public function getPreviousRecommendationByMobileNumber($request): int
+    public function getPreviousRecommendationByMobileNumber($request): int|array
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getPreviousRecommendationByMobileNumber($mobile_number);
@@ -381,5 +381,97 @@ class PatientService
     {
         $data = $request->all();
         $patientStatus = $this->patientServiceInterface->editPatientByMobileNumber($data);
+    }
+
+    public function addPatientRecommendedTask($request)
+    {
+        $data = [
+            'mobile_number' => $request['mobile_number'],
+            'recommended_tasks' => $request['recommended_tasks'],
+        ];
+        $addPatientRecommendedTaskStatus = $this->patientServiceInterface->addPatientRecommendedTask($data);
+//        dd($addPatientRecommendedTaskStatus);
+        if ($addPatientRecommendedTaskStatus == 23000) {
+            return Constants::INVALID_PHONE_NUMBER;
+        } else {
+            return true;
+        }
+    }
+
+    public function getPatientRecommendedTask($request)
+    {
+        $mobile_number = $request['mobile_number'];
+        $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
+//        dd($patientRecommendedTask);
+        if ($patientRecommendedTask == 0) {
+            return false;
+        } else {
+            return $patientRecommendedTask['recommended_tasks'];
+        }
+    }
+
+    public function checkRecommendedTaskStatus($request)
+    {
+        $mobile_number = $request['mobile_number'];
+        $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
+        $patientRecommendedTaskArr = explode("|", $patientRecommendedTask['recommended_tasks']);
+        $patientRecommendedTask1 = $patientRecommendedTaskArr[0];
+        $task1PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask1);
+        $task1Status = $this->getStatus($task1PatientDailyStatusDetails);
+        if (count($task1Status) > 0){
+            if ($task1Status[0] == "Yes"){
+                $task1CheckedArr =[
+                    "recommendedTask1" => "Done"
+                ];
+            }else{
+                $task1CheckedArr =[
+                    "recommendedTask1" => "Not Done"
+                ];
+            }
+        }
+
+        if (!($patientRecommendedTaskArr[1] == "")) {
+            $patientRecommendedTask2 = $patientRecommendedTaskArr[1];
+            $task2PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask2);
+            $task2Status = $this->getStatus($task2PatientDailyStatusDetails);
+            if (count($task2Status) > 0){
+                if ($task2Status[0] == "Yes"){
+                    $task2CheckedArr =[
+                        "recommendedTask2" => "Done"
+                    ];
+                }else{
+                    $task2CheckedArr =[
+                        "recommendedTask2" => "Not Done"
+                    ];
+                }
+                return array_merge($task1CheckedArr, $task2CheckedArr);
+            }
+
+
+
+        }
+        return array_merge($task1CheckedArr);
+    }
+
+    public function getStatus($patientDailyStatusDetailsOfTasks)
+    {
+        $statusArr = array();
+        for ($x = 0; $x < count($patientDailyStatusDetailsOfTasks); $x++) {
+            array_push($statusArr,$patientDailyStatusDetailsOfTasks[$x]['follow_rec']);
+        }
+        return $statusArr;
+
+    }
+
+    public function getPatientPreviousRecommendedTask($request)
+    {
+        $mobile_number = $request['mobile_number'];
+        $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
+//        dd($patientRecommendedTask);
+        if ($patientRecommendedTask == 0) {
+            return false;
+        } else {
+            return $patientRecommendedTask['previous_recommended_tasks'];
+        }
     }
 }

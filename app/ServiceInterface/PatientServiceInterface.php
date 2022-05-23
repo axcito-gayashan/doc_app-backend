@@ -99,4 +99,10 @@ interface PatientServiceInterface
 
     public function editPatientByMobileNumber($data);
 
+    public function addPatientRecommendedTask($data);
+
+    public function getPatientRecommendedTask($mobile_number);
+
+    public function checkRecommendedTaskStatus($mobile_number,$patientRecommendedTask_1);
+
 }

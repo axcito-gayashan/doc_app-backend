@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('doctor_recommendations', function (Blueprint $table) {
-            $table->id()->unique();
+        Schema::create('recommended_tasks', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('mobile_number');
             $table->foreign('mobile_number')->references('mobile_number')->on('patients');
-            $table->string('recommendation')->nullable();
+            $table->text('recommended_tasks')->nullable();
+            $table->text('previous_recommended_tasks')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor_recommendations');
+        Schema::dropIfExists('recommended_tasks');
     }
 };

@@ -19,6 +19,7 @@ return new class extends Migration
 //            $table->foreign('mobile_number')->references('mobile_number')->on('patients');
             $table->date('eval_date');
             $table->string('follow_rec');
+            $table->string('recommended_task')->nullable();
             $table->string('experience_enj_count')->nullable();
             $table->string('failure_reason')->nullable();
             $table->string('enjoy_exp')->nullable();

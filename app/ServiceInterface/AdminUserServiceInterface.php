@@ -15,4 +15,10 @@ interface AdminUserServiceInterface
 
     public function passwordUpdate($newPassword);
 
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function loginUser($email): mixed;
+
 }

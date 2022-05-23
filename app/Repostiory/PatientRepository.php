@@ -17,6 +17,7 @@ use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
 use App\Models\PatientTechnologicalLiteracy;
 use App\Models\PreviousGoalDetails;
+use App\Models\RecommendedTasks;
 use App\Models\User;
 use App\Models\WeightLoseGoal;
 use App\ServiceInterface\PatientServiceInterface;
@@ -32,7 +33,6 @@ class PatientRepository implements PatientServiceInterface
 
     public function register($inputData): array|string
     {
-
         try {
             $user = Patient::where('phone_number', '=', $inputData['phone_number'])->first();
             if ($user === null) {
@@ -214,7 +214,7 @@ class PatientRepository implements PatientServiceInterface
             $patient3 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
             $patient4 = Patient::find($mobile_number)->getPatientGoal->toArray();
 
-            return array_merge($patient1,$patient2,$patient3,$patient4);
+            return array_merge($patient1, $patient2, $patient3, $patient4);
 
 //            $patientDataArray['first_name'] = $patient1->first_name;
 //            dd($patientDataArray);
@@ -222,7 +222,6 @@ class PatientRepository implements PatientServiceInterface
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
 
     /**
@@ -232,8 +231,6 @@ class PatientRepository implements PatientServiceInterface
 
     public function addPatientDailyStatus($request): mixed
     {
-//        dd($request);
-
         try {
             $patientDailyStatus = new PatientDailyStatus();
             $patientDailyStatus->fill($request);
@@ -242,7 +239,6 @@ class PatientRepository implements PatientServiceInterface
         } catch (\Exception $e) {
             return $e->getCode();
         }
-
     }
 
     /**
@@ -333,9 +329,9 @@ class PatientRepository implements PatientServiceInterface
             $patientGoal = Patient::find($mobile_number)->getPatientGoal->toArray();
             $patientRecommendation = Patient::find($mobile_number)->getPatientRecommendation->toArray();
 
-            return array_merge($patientPersonalDetails,$patientHealthDetails,$patientGoal,$patientRecommendation);
+            return array_merge($patientPersonalDetails, $patientHealthDetails, $patientGoal, $patientRecommendation);
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $e->getCode();
         }
 
@@ -370,5 +366,53 @@ class PatientRepository implements PatientServiceInterface
                 'look_forward_factors' => $data['look_forward_factors'],
             ]
         );
+    }
+
+    public function addPatientRecommendedTask($data)
+    {
+        try {
+            $isUserExist = RecommendedTasks::where('mobile_number', $data['mobile_number'])->exists();
+            if ($isUserExist) {
+                $recommendedDetails = RecommendedTasks::where('mobile_number', $data['mobile_number'])->firstOrFail()->toArray();
+                $previousRecommendedTasks = $recommendedDetails['recommended_tasks'];
+                $latestRecommendedTask = $recommendedDetails['previous_recommended_tasks'];
+
+                RecommendedTasks::where(['mobile_number' => $data['mobile_number']])->update(
+                    [
+                        'recommended_tasks' => $data['recommended_tasks'],
+                        'previous_recommended_tasks' => $previousRecommendedTasks.",".$latestRecommendedTask
+                    ]
+                );
+            } else {
+                $newRecommendedTasks = new RecommendedTasks();
+                $newRecommendedTasks->fill($data);
+                $newRecommendedTasks->save();
+
+            }
+
+
+        } catch (\Exception $e) {
+            return $e->getCode();
+        }
+
+    }
+
+    public function getPatientRecommendedTask($mobile_number)
+    {
+        try {
+            return RecommendedTasks::where('mobile_number', $mobile_number)->firstOrFail()->toArray();
+        } catch (\Exception $e) {
+            return $e->getCode();
+        }
+    }
+
+    public function checkRecommendedTaskStatus($mobile_number,$patientRecommendedTask_1)
+    {
+        try {
+
+            return PatientDailyStatus::where('mobile_number', $mobile_number)->where('recommended_task', $patientRecommendedTask_1)->get()->toArray();
+        } catch (\Exception $e) {
+            return $e->getCode();
+        }
     }
 }
