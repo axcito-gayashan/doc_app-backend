@@ -42,10 +42,15 @@ Route::group([
     Route::post('/addPatientDailyStatus', [PatientController::class, 'addPatientDailyStatus']);
     Route::get('/getPatientDailyStatus', [PatientController::class, 'getPatientDailyStatus']);
     Route::post('/addWeightLoseGoalDetails', [PatientController::class, 'addWeightLoseGoalDetails']);
-    Route::post('/getWeightLoseGoalDetailsByMobileNumber', [PatientController::class, 'get0WeightLoseGoalDetailsByMobileNumber']);
+    Route::post('/getWeightLoseGoalDetailsByMobileNumber', [PatientController::class, 'getWeightLoseGoalDetailsByMobileNumber']);
     Route::post('/addDoctorRecommendation', [PatientController::class, 'addDoctorRecommendation']);
     Route::post('/getPreviousRecommendationByMobileNumber', [PatientController::class, 'getPreviousRecommendationByMobileNumber']);
     Route::post('/getDailyStatus', [PatientController::class, 'getDailyStatus']);
     Route::post('/editPatientByMobileNumber', [PatientController::class, 'editPatientByMobileNumber']);
+    Route::post('/addPatientRecommendedTask', [PatientController::class, 'addPatientRecommendedTask']);
+    Route::post('/getPatientRecommendedTask', [PatientController::class, 'getPatientRecommendedTask']);
+    Route::post('/checkRecommendedTaskStatus', [PatientController::class, 'checkRecommendedTaskStatus']);
+    Route::post('/getPatientPreviousRecommendedTask', [PatientController::class, 'getPatientPreviousRecommendedTask']);
+
 
 });

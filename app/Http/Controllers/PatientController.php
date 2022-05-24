@@ -274,5 +274,46 @@ class PatientController extends Controller
 
     }
 
+    public function addPatientRecommendedTask(Request $request)
+    {
+        $addPatientRecommendedTaskStatus = $this->patientService->addPatientRecommendedTask($request);
+        switch ($addPatientRecommendedTaskStatus === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient status successfully retrieved', null, Response::HTTP_OK);
+        }
+    }
+
+    public function getPatientRecommendedTask(Request $request)
+    {
+        $patientRecommendedTask = $this->patientService->getPatientRecommendedTask($request);
+        switch ($patientRecommendedTask) {
+            case true:
+                return $this->responseHelper->response('success', 'Patient status successfully retrieved', $patientRecommendedTask, Response::HTTP_OK);
+            default:
+            case false:
+            return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+        }
+    }
+
+    public function checkRecommendedTaskStatus(Request $request)
+    {
+        return $this->patientService->checkRecommendedTaskStatus($request->all());
+    }
+
+    public function getPatientPreviousRecommendedTask(Request $request)
+    {
+        $patientRecommendedTask = $this->patientService->getPatientPreviousRecommendedTask($request);
+        switch ($patientRecommendedTask) {
+            case true:
+                return $this->responseHelper->response('success', 'Patient status successfully retrieved', $patientRecommendedTask, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+        }
+    }
+
 
 }

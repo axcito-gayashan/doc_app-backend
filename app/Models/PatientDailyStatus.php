@@ -15,6 +15,7 @@ class PatientDailyStatus extends Model
         'mobile_number',
         'eval_date',
         'follow_rec',
+        'recommended_task',
         'experience_enj_count',
         'failure_reason',
         'enjoy_exp',
