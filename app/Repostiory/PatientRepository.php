@@ -13,6 +13,7 @@ use App\Constants\Constants;
 use App\Models\DoctorRecommendation;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
+use App\Models\PatientFollowUp;
 use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
 use App\Models\PatientTechnologicalLiteracy;
@@ -286,13 +287,16 @@ class PatientRepository implements PatientServiceInterface
         }
     }
 
-    public function getWeightLoseGoalDetailsByMobileNumber($mobile_number)
+    /**
+     * @param $mobile_number
+     * @return string|array
+     */
+    public function getWeightLoseGoalDetailsByMobileNumber($mobile_number): array|string
     {
 //        dd($mobile_number);
 //        dd(WeightLoseGoal::find($mobile_number)->toArray());
         try {
             return WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray();
-//            dd(WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray());
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -370,5 +374,21 @@ class PatientRepository implements PatientServiceInterface
                 'look_forward_factors' => $data['look_forward_factors'],
             ]
         );
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function patientFollowUp($data): mixed
+    {
+        try {
+            $patientFollowUp = new PatientFollowUp();
+            $patientFollowUp->fill($data);
+            $patientFollowUp->save();
+            return true;
+        } catch (\Exception $e) {
+            return $e->getCode();
+        }
     }
 }

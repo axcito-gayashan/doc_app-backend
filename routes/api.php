@@ -42,10 +42,11 @@ Route::group([
     Route::post('/addPatientDailyStatus', [PatientController::class, 'addPatientDailyStatus']);
     Route::get('/getPatientDailyStatus', [PatientController::class, 'getPatientDailyStatus']);
     Route::post('/addWeightLoseGoalDetails', [PatientController::class, 'addWeightLoseGoalDetails']);
-    Route::post('/getWeightLoseGoalDetailsByMobileNumber', [PatientController::class, 'get0WeightLoseGoalDetailsByMobileNumber']);
+    Route::post('/getWeightLoseGoalDetailsByMobileNumber', [PatientController::class, 'getWeightLoseGoalDetailsByMobileNumber']);
     Route::post('/addDoctorRecommendation', [PatientController::class, 'addDoctorRecommendation']);
     Route::post('/getPreviousRecommendationByMobileNumber', [PatientController::class, 'getPreviousRecommendationByMobileNumber']);
     Route::post('/getDailyStatus', [PatientController::class, 'getDailyStatus']);
     Route::post('/editPatientByMobileNumber', [PatientController::class, 'editPatientByMobileNumber']);
+    Route::post('/patientFollowUp', [PatientController::class, 'patientFollowUp']);
 
 });

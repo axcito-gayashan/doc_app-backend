@@ -274,5 +274,22 @@ class PatientController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function patientFollowUp(Request $request)
+    {
+        $filteredValue = $this->patientService->patientFollowUp($request);
+
+        switch ($filteredValue == 1002) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient follow up details successfully added', $filteredValue, Response::HTTP_OK);
+        }
+    }
+
 
 }

@@ -300,11 +300,10 @@ class PatientService
      * @return int
      */
 
-    public function getWeightLoseGoalDetailsByMobileNumber($request): int
+    public function getWeightLoseGoalDetailsByMobileNumber($request): mixed
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getWeightLoseGoalDetailsByMobileNumber($mobile_number);
-//        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -381,5 +380,25 @@ class PatientService
     {
         $data = $request->all();
         $patientStatus = $this->patientServiceInterface->editPatientByMobileNumber($data);
+    }
+
+    /**
+     * @param $request
+     * @return array|bool[]
+     */
+    public function patientFollowUp($request)
+    {
+        $data = $request->all();
+        $status = $this->patientServiceInterface->patientFollowUp($data);
+
+        if ($status) {
+            return [
+                'status' => true
+            ];
+        } else {
+            return [
+                'status' => Constants::USER_NOT_FOUND
+            ];
+        }
     }
 }

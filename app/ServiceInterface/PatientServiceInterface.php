@@ -99,4 +99,10 @@ interface PatientServiceInterface
 
     public function editPatientByMobileNumber($data);
 
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function patientFollowUp($data): mixed;
+
 }
