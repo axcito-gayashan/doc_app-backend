@@ -474,4 +474,36 @@ class PatientService
             return $patientRecommendedTask['previous_recommended_tasks'];
         }
     }
+
+    public function patientFollowUp($request)
+    {
+        $followUpDetails = array(
+            'id' => $request['id'],
+            'mobile_number' => $request['mobile_number'],
+            'time_start' => $request['time_start'],
+            'weight' => $request['weight'],
+            'height' => $request['height'],
+            'bmi' => $request['bmi'],
+            'average' => $request['average'],
+            'self_eval' => $request['self_eval'],
+            'last_week_exp' => $request['last_week_exp'],
+            'main_barriers' => $request['main_barriers'],
+            'main_posotive_themes' => $request['main_posotive_themes'],
+            'main_negative_themes' => $request['main_negative_themes'],
+            'new_strategy' => $request['new_strategy'],
+            'recommendation_task1' => $request['recommendation_task1'],
+            'recommendation_task2' => $request['recommendation_task2'],
+            'confident_goal_factor' => $request['confident_goal_factor'],
+            'pre_mortem' => $request['pre_mortem'],
+            'time_out' => $request['time_out'],
+        );
+
+//        return $this->patientServiceInterface->patientFollowUp($followUpDetails);
+        $filteredValue = $this->patientServiceInterface->patientFollowUp($followUpDetails);
+        if ($filteredValue['mobile_number'] == null) {
+            return Constants::INVALID_PHONE_NUMBER;
+        } else {
+            return $filteredValue;
+        }
+    }
 }

@@ -16,14 +16,17 @@ class PatientDailyStatus extends Model
         'eval_date',
         'follow_rec',
         'recommended_task',
-        'experience_enj_count',
+        'how_much_did-you-enjoy_today',
         'failure_reason',
-        'enjoy_exp',
-        'best_exp',
-        'magical_solution',
+        'what_did_you_enjoy_most_about',
+        'best_experience_ever',
+        'what_would_have_helped_complete_the_goal',
         'challange_barrier',
-        'challange_tomorrow',
-        'make_ten'
+        'likelihood_you_will_complete_the_challenge_tomorrow',
+        'what_would_make_that_a_ten',
+        'how_easy_it_was_the_goal_to_complete',
+        'how_fun_was_the_goal',
+        'complete_the_goal_tomorrow_rate'
 
     ];
 }
