@@ -13,6 +13,7 @@ use App\Constants\Constants;
 use App\Models\DoctorRecommendation;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
+use App\Models\PatientFollowUp;
 use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
 use App\Models\PatientTechnologicalLiteracy;
@@ -409,8 +410,20 @@ class PatientRepository implements PatientServiceInterface
     public function checkRecommendedTaskStatus($mobile_number,$patientRecommendedTask_1)
     {
         try {
-
             return PatientDailyStatus::where('mobile_number', $mobile_number)->where('recommended_task', $patientRecommendedTask_1)->get()->toArray();
+        } catch (\Exception $e) {
+            return $e->getCode();
+        }
+    }
+
+    public function patientFollowUp($followUpDetails)
+    {
+        try {
+//            dd($followUpDetails);
+            $patientFollowUp = new PatientFollowUp();
+            $patientFollowUp->fill($followUpDetails);
+            $patientFollowUp->save();
+            return ['mobile_number' => $patientFollowUp->mobile_number,];
         } catch (\Exception $e) {
             return $e->getCode();
         }

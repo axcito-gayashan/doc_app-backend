@@ -20,14 +20,17 @@ return new class extends Migration
             $table->date('eval_date');
             $table->string('follow_rec');
             $table->string('recommended_task')->nullable();
-            $table->string('experience_enj_count')->nullable();
+            $table->string('how_much_did-you-enjoy_today')->nullable();
+            $table->integer('how_easy_it_was_the_goal_to_complete')->nullable();
+            $table->integer('how_fun_was_the_goal')->nullable();
             $table->string('failure_reason')->nullable();
-            $table->string('enjoy_exp')->nullable();
-            $table->string('best_exp')->nullable();
-            $table->string('magical_solution')->nullable();
+            $table->string('what_did_you_enjoy_most_about')->nullable();
+            $table->string('best_experience_ever')->nullable();
+            $table->string('what_would_have_helped_complete_the_goal')->nullable();
+            $table->integer('complete_the_goal_tomorrow_rate')->nullable();
             $table->string('challange_barrier')->nullable();
-            $table->string('challange_tomorrow')->nullable();
-            $table->string('make_ten')->nullable();
+            $table->string('likelihood_you_will_complete_the_challenge_tomorrow')->nullable();
+            $table->string('what_would_make_that_a_ten')->nullable();
         });
     }
 

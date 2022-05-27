@@ -105,4 +105,6 @@ interface PatientServiceInterface
 
     public function checkRecommendedTaskStatus($mobile_number,$patientRecommendedTask_1);
 
+    public function patientFollowUp($followUpDetails);
+
 }

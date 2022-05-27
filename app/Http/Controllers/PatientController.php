@@ -315,5 +315,19 @@ class PatientController extends Controller
         }
     }
 
+    public function patientFollowUp(Request $request)
+    {
+        $addPatientRecommendedTaskStatus = $this->patientService->patientFollowUp($request);
+//        dd($addPatientRecommendedTaskStatus);
+
+        switch ($addPatientRecommendedTaskStatus === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient followup details successfully submitted', $addPatientRecommendedTaskStatus['mobile_number'], Response::HTTP_OK);
+        }
+    }
+
 
 }
