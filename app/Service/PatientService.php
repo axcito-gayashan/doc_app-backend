@@ -413,6 +413,7 @@ class PatientService
     public function checkRecommendedTaskStatus($request)
     {
         $mobile_number = $request['mobile_number'];
+        $task1CheckedArr = [];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
         $patientRecommendedTaskArr = explode("|", $patientRecommendedTask['recommended_tasks']);
         $patientRecommendedTask1 = $patientRecommendedTaskArr[0];
@@ -446,9 +447,6 @@ class PatientService
                 }
                 return array_merge($task1CheckedArr, $task2CheckedArr);
             }
-
-
-
         }
         return array_merge($task1CheckedArr);
     }
@@ -460,7 +458,6 @@ class PatientService
             array_push($statusArr,$patientDailyStatusDetailsOfTasks[$x]['follow_rec']);
         }
         return $statusArr;
-
     }
 
     public function getPatientPreviousRecommendedTask($request)

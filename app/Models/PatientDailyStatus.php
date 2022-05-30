@@ -16,7 +16,7 @@ class PatientDailyStatus extends Model
         'eval_date',
         'follow_rec',
         'recommended_task',
-        'how_much_did-you-enjoy_today',
+        'how_much_did_you_enjoy_today',
         'failure_reason',
         'what_did_you_enjoy_most_about',
         'best_experience_ever',
