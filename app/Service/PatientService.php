@@ -506,4 +506,16 @@ class PatientService
             return $filteredValue;
         }
     }
+
+    public function getPatientFollowUpDetailsByMobileNumber($request)
+    {
+        $mobile_number = $request['mobile_number'];
+        $filteredValue = $this->patientServiceInterface->getPatientFollowUpDetailsByMobileNumber($mobile_number);
+//        dd($filteredValue);
+        if (count($filteredValue) > 0) {
+            return $filteredValue;
+        } else {
+            return Constants::INVALID_PHONE_NUMBER;
+        }
+    }
 }

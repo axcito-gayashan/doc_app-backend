@@ -329,5 +329,16 @@ class PatientController extends Controller
         }
     }
 
+    public function getPatientFollowUpDetailsByMobileNumber(Request $request)
+    {
+        $filteredValue = $this->patientService->getPatientFollowUpDetailsByMobileNumber($request->all());
+        switch ($filteredValue === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient follow up details successfully retrieved', $filteredValue, Response::HTTP_OK);
+        }
+    }
 
 }

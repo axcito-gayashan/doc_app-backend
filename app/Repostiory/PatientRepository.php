@@ -428,4 +428,13 @@ class PatientRepository implements PatientServiceInterface
             return $e->getCode();
         }
     }
+
+    public function getPatientFollowUpDetailsByMobileNumber($mobile_number): mixed
+    {
+        try {
+            return PatientFollowUp::where('mobile_number', $mobile_number)->select('recommendation_task1', 'recommendation_task2')->get();;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

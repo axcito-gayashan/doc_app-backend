@@ -52,6 +52,7 @@ Route::group([
     Route::post('/checkRecommendedTaskStatus', [PatientController::class, 'checkRecommendedTaskStatus']);
     Route::post('/getPatientPreviousRecommendedTask', [PatientController::class, 'getPatientPreviousRecommendedTask']);
     Route::post('/patientFollowUp', [PatientController::class, 'patientFollowUp']);
+    Route::post('/getPatientFollowUpDetailsByMobileNumber', [PatientController::class, 'getPatientFollowUpDetailsByMobileNumber']);
 
 
 });
