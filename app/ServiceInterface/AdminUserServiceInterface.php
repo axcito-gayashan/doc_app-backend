@@ -21,4 +21,6 @@ interface AdminUserServiceInterface
      */
     public function loginUser($email): mixed;
 
+    public function logout($request);
+
 }
