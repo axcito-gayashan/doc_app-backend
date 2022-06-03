@@ -62,4 +62,9 @@ class AdminUserService
 
 
     }
+
+    public function logout($request)
+    {
+        return $this->adminUserServiceInterface->logout($request);
+    }
 }

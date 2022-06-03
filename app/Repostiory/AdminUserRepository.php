@@ -51,4 +51,14 @@ class AdminUserRepository implements AdminUserServiceInterface
     {
         return User::where('email', $email)->first();
     }
+
+    public function logout($request)
+    {
+        try {
+            return $request->user()->currentAccessToken()->delete();
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
 }
