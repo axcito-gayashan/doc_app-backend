@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('dob');
             $table->integer('age');
+            $table->string('gender');
             $table->string('ethnicity');
             $table->string('relationship_status');
             $table->string('highest_education');
