@@ -28,11 +28,9 @@ Route::group([
     Route::post('/register', [AdminUserController::class, 'register']);
     Route::post('/login', [AdminUserController::class, 'login']);
     Route::post('/passwordUpdate', [AdminUserController::class, 'passwordUpdate']);
-//    Route::post('/logout', [AdminUserController::class, 'logout']);
     Route::group([
         'middleware' => 'auth:sanctum',
     ], function () {
-//        Route::get('me', [UserController::class, 'me']);
         Route::post('logout', [AdminUserController::class, 'logout']);
     });
 });
@@ -59,6 +57,7 @@ Route::group([
     Route::post('/checkRecommendedTaskStatus', [PatientController::class, 'checkRecommendedTaskStatus']);
     Route::post('/getPatientPreviousRecommendedTask', [PatientController::class, 'getPatientPreviousRecommendedTask']);
     Route::post('/patientFollowUp', [PatientController::class, 'patientFollowUp']);
+    Route::post('/getPatientFollowUpDetailsByMobileNumber', [PatientController::class, 'getPatientFollowUpDetailsByMobileNumber']);
 
 
 });

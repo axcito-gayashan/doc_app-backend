@@ -381,7 +381,7 @@ class PatientRepository implements PatientServiceInterface
                 RecommendedTasks::where(['mobile_number' => $data['mobile_number']])->update(
                     [
                         'recommended_tasks' => $data['recommended_tasks'],
-                        'previous_recommended_tasks' => $previousRecommendedTasks.",".$latestRecommendedTask
+                        'previous_recommended_tasks' => $previousRecommendedTasks.$latestRecommendedTask
                     ]
                 );
             } else {
@@ -426,6 +426,15 @@ class PatientRepository implements PatientServiceInterface
             return ['mobile_number' => $patientFollowUp->mobile_number,];
         } catch (\Exception $e) {
             return $e->getCode();
+        }
+    }
+
+    public function getPatientFollowUpDetailsByMobileNumber($mobile_number): mixed
+    {
+        try {
+            return PatientFollowUp::where('mobile_number', $mobile_number)->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 }

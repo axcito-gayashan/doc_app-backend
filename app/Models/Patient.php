@@ -21,6 +21,7 @@ class Patient extends Model
         'last_name',
         'dob',
         'age',
+        'gender',
         'ethnicity',
         'relationship_status',
         'highest_education'

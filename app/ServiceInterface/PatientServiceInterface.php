@@ -107,4 +107,6 @@ interface PatientServiceInterface
 
     public function patientFollowUp($followUpDetails);
 
+    public function getPatientFollowUpDetailsByMobileNumber($mobile_number): mixed;
+
 }
