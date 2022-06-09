@@ -9,7 +9,7 @@ class PatientFollowUp extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     protected $fillable = [
         'mobile_number',

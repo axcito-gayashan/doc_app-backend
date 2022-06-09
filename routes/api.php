@@ -28,6 +28,11 @@ Route::group([
     Route::post('/register', [AdminUserController::class, 'register']);
     Route::post('/login', [AdminUserController::class, 'login']);
     Route::post('/passwordUpdate', [AdminUserController::class, 'passwordUpdate']);
+    Route::group([
+        'middleware' => 'auth:sanctum',
+    ], function () {
+        Route::post('logout', [AdminUserController::class, 'logout']);
+    });
 });
 Route::group([
     'prefix' => 'patient',

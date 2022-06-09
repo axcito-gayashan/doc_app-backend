@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('eval_date');
             $table->string('follow_rec');
             $table->string('recommended_task')->nullable();
-            $table->string('how_much_did-you-enjoy_today')->nullable();
+            $table->integer('how_much_did_you_enjoy_today')->nullable();
             $table->integer('how_easy_it_was_the_goal_to_complete')->nullable();
             $table->integer('how_fun_was_the_goal')->nullable();
             $table->string('failure_reason')->nullable();

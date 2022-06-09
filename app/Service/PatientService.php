@@ -89,6 +89,7 @@ class PatientService
             'dob' => $request['dob'],
             'age' => $request['age'],
             'mobile_number' => $request['mobile_number'],
+            'gender' => $request['gender'],
             'ethnicity' => $request['ethnicity'],
             'relationship_status' => $request['relationship_status'],
             'highest_education' => $request['highest_education'],
@@ -263,6 +264,8 @@ class PatientService
             'mobile_number' => $request['mobile_number'],
             'goal_id' => $request['goal_id'],
             'goal' => $request['goal'],
+            'target_weight' => $request['target_weight'],
+            'desired_time_frame' => $request['desired_time_frame'],
             'motivation_factor_for_goal_manual' => $request['motivation_factor_for_goal_manual'],
             'motivation_factor_for_goal_selected' => $request['motivation_factor_for_goal_selected'],
             'level_of_motivation' => $request['level_of_motivation'],
@@ -275,6 +278,8 @@ class PatientService
             'attempted_yes_success_challenges' => $request['attempted_yes_success_challenges'],
             'attempted_no_success_factors' => $request['attempted_no_success_factors'],
             'attempted_no_success_challenges' => $request['attempted_no_success_challenges'],
+            'what_stopped_you_from_continue' => $request['what_stopped_you_from_continue'],
+            'what_has_prevented_you_from_restarting' => $request['what_has_prevented_you_from_restarting'],
             'confident_factor' => $request['confident_factor'],
             'confident_to_change_encouragement' => $request['confident_to_change_encouragement'],
             'look_forward_factors' => $request['look_forward_factors'],
@@ -413,6 +418,7 @@ class PatientService
     public function checkRecommendedTaskStatus($request)
     {
         $mobile_number = $request['mobile_number'];
+        $task1CheckedArr = [];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
         $patientRecommendedTaskArr = explode("|", $patientRecommendedTask['recommended_tasks']);
         $patientRecommendedTask1 = $patientRecommendedTaskArr[0];
@@ -446,9 +452,6 @@ class PatientService
                 }
                 return array_merge($task1CheckedArr, $task2CheckedArr);
             }
-
-
-
         }
         return array_merge($task1CheckedArr);
     }
@@ -460,7 +463,6 @@ class PatientService
             array_push($statusArr,$patientDailyStatusDetailsOfTasks[$x]['follow_rec']);
         }
         return $statusArr;
-
     }
 
     public function getPatientPreviousRecommendedTask($request)

@@ -381,7 +381,7 @@ class PatientRepository implements PatientServiceInterface
                 RecommendedTasks::where(['mobile_number' => $data['mobile_number']])->update(
                     [
                         'recommended_tasks' => $data['recommended_tasks'],
-                        'previous_recommended_tasks' => $previousRecommendedTasks.",".$latestRecommendedTask
+                        'previous_recommended_tasks' => $previousRecommendedTasks.$latestRecommendedTask
                     ]
                 );
             } else {
