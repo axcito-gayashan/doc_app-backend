@@ -425,7 +425,7 @@ class PatientService
         $task1PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask1);
         $task1Status = $this->getStatus($task1PatientDailyStatusDetails);
         if (count($task1Status) > 0){
-            if ($task1Status[0] == "Yes"){
+            if (in_array('Yes', $task1Status)){
                 $task1CheckedArr =[
                     "recommendedTask1" => "Done"
                 ];
@@ -434,6 +434,7 @@ class PatientService
                     "recommendedTask1" => "Not Done"
                 ];
             }
+
         }
 
         if (!($patientRecommendedTaskArr[1] == "")) {
@@ -441,7 +442,7 @@ class PatientService
             $task2PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask2);
             $task2Status = $this->getStatus($task2PatientDailyStatusDetails);
             if (count($task2Status) > 0){
-                if ($task2Status[0] == "Yes"){
+                if (in_array('Yes', $task2Status)){
                     $task2CheckedArr =[
                         "recommendedTask2" => "Done"
                     ];
@@ -453,7 +454,7 @@ class PatientService
                 return array_merge($task1CheckedArr, $task2CheckedArr);
             }
         }
-        return array_merge($task1CheckedArr);
+        return $task1CheckedArr;
     }
 
     public function getStatus($patientDailyStatusDetailsOfTasks)
@@ -469,7 +470,6 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
-//        dd($patientRecommendedTask);
         if ($patientRecommendedTask == 0) {
             return false;
         } else {

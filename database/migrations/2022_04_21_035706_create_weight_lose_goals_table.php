@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('goal_id');
 //            $table->foreign('goal_id')->references('goal_id')->on('patient_goals');
             $table->string('goal');
-            $table->string('target_weight');
-            $table->string('desired_time_frame');
+            $table->string('target_weight')->nullable();
+            $table->string('desired_time_frame')->nullable();
             $table->string('motivation_factor_for_goal_manual')->nullable();
             $table->string('motivation_factor_for_goal_selected')->nullable();
             $table->integer('level_of_motivation')->nullable();
