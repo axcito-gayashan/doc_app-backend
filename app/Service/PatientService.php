@@ -266,6 +266,9 @@ class PatientService
             'goal' => $request['goal'],
             'target_weight' => $request['target_weight'],
             'desired_time_frame' => $request['desired_time_frame'],
+            'how_much_do_you_love_food' => $request['how_much_do_you_love_food'],
+            'how_would_you_rate_your_self_control' => $request['how_would_you_rate_your_self_control'],
+            'how_many_times_week_do_i_exercise' => $request['how_many_times_week_do_i_exercise'],
             'motivation_factor_for_goal_manual' => $request['motivation_factor_for_goal_manual'],
             'motivation_factor_for_goal_selected' => $request['motivation_factor_for_goal_selected'],
             'level_of_motivation' => $request['level_of_motivation'],
@@ -280,8 +283,13 @@ class PatientService
             'attempted_no_success_challenges' => $request['attempted_no_success_challenges'],
             'what_stopped_you_from_continue' => $request['what_stopped_you_from_continue'],
             'what_has_prevented_you_from_restarting' => $request['what_has_prevented_you_from_restarting'],
+            'what_stopped_you_from_continuing_to_lose_weight' => $request['what_stopped_you_from_continuing_to_lose_weight'],
+            'what_has_prevented_you_from_trying_again' => $request['what_has_prevented_you_from_trying_again'],
+            'in_the_reasons_for_current_weight' => $request['in_the_reasons_for_current_weight'],
             'confident_factor' => $request['confident_factor'],
             'confident_to_change_encouragement' => $request['confident_to_change_encouragement'],
+            'how_hard_have_you_really_tried_to_lose_weight' => $request['how_hard_have_you_really_tried_to_lose_weight'],
+            'roughly_how_many_times_have_you_tried' => $request['roughly_how_many_times_have_you_tried'],
             'look_forward_factors' => $request['look_forward_factors'],
 
         ];
