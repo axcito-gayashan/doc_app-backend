@@ -271,6 +271,7 @@ class PatientService
             'level_of_motivation' => $request['level_of_motivation'],
             'motivation_target_10_text' => $request['motivation_target_10_text'],
             'contribute_favtors_selected' => $request['contribute_favtors_selected'],
+            'contribute_favtors_frequency' => $request['contribute_favtors_frequency'],
 //            'contribute_favtors_manually_added' => $request['contribute_favtors_manually_added'],
             'no_one_fouca_factor' => $request['no_one_fouca_factor'],
             'previously_attempted' => $request['previously_attempted'],

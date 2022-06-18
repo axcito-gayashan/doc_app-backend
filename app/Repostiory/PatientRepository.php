@@ -351,6 +351,8 @@ class PatientRepository implements PatientServiceInterface
             [
                 'goal_id' => $data['goal_id'],
                 'goal' => $data['goal'],
+                'target_weight' => $data['target_weight'],
+                'desired_time_frame' => $data['desired_time_frame'],
                 'motivation_factor_for_goal_manual' => $data['motivation_factor_for_goal_manual'],
                 'motivation_factor_for_goal_selected' => $data['motivation_factor_for_goal_selected'],
                 'level_of_motivation' => $data['level_of_motivation'],
@@ -362,6 +364,8 @@ class PatientRepository implements PatientServiceInterface
                 'attempted_yes_success_challenges' => $data['attempted_yes_success_challenges'],
                 'attempted_no_success_factors' => $data['attempted_no_success_factors'],
                 'attempted_no_success_challenges' => $data['attempted_no_success_challenges'],
+                'what_stopped_you_from_continue' => $data['what_stopped_you_from_continue'],
+                'what_has_prevented_you_from_restarting' => $data['what_has_prevented_you_from_restarting'],
                 'confident_factor' => $data['confident_factor'],
                 'confident_to_change_encouragement' => $data['confident_to_change_encouragement'],
                 'look_forward_factors' => $data['look_forward_factors'],

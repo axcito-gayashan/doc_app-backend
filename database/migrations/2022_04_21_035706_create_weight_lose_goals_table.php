@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('level_of_motivation')->nullable();
             $table->string('motivation_target_10_text')->nullable();
             $table->text('contribute_favtors_selected')->nullable();
+            $table->text('contribute_favtors_frequency')->nullable();
 //            $table->string('contribute_favtors_manually_added')->$this->nullable();
             $table->string('no_one_fouca_factor')->nullable();
             $table->string('previously_attempted')->nullable();

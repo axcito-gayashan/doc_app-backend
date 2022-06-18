@@ -22,6 +22,7 @@ class WeightLoseGoal extends Model
         'level_of_motivation',
         'motivation_target_10_text',
         'contribute_favtors_selected',
+        'contribute_favtors_frequency',
 //        'contribute_favtors_manually_added',
         'no_one_fouca_factor',
         'previously_attempted',
