@@ -441,4 +441,13 @@ class PatientRepository implements PatientServiceInterface
             return $e->getMessage();
         }
     }
+
+    public function getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date): mixed
+    {
+        try {
+            return PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

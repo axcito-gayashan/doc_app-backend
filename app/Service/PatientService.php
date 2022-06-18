@@ -521,4 +521,22 @@ class PatientService
             return Constants::INVALID_PHONE_NUMBER;
         }
     }
+
+    public function getPatientDailyStatusByMobileNumber($request)
+    {
+        $mobile_number = $request['mobile_number'];
+//        $from_date = $request['from_date'];
+//        $to_date = $request['to_date'];
+
+        $from_date = date($request['from_date']);
+        $to_date = date($request['to_date']);
+
+        $filteredValue = $this->patientServiceInterface->getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date);
+//        dd($filteredValue);
+        if (count($filteredValue) > 0) {
+            return $filteredValue;
+        } else {
+            return Constants::INVALID_PHONE_NUMBER;
+        }
+    }
 }
