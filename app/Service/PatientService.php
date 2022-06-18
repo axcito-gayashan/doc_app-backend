@@ -266,6 +266,9 @@ class PatientService
             'goal' => $request['goal'],
             'target_weight' => $request['target_weight'],
             'desired_time_frame' => $request['desired_time_frame'],
+            'how_much_do_you_love_food' => $request['how_much_do_you_love_food'],
+            'how_would_you_rate_your_self_control' => $request['how_would_you_rate_your_self_control'],
+            'how_many_times_week_do_i_exercise' => $request['how_many_times_week_do_i_exercise'],
             'motivation_factor_for_goal_manual' => $request['motivation_factor_for_goal_manual'],
             'motivation_factor_for_goal_selected' => $request['motivation_factor_for_goal_selected'],
             'level_of_motivation' => $request['level_of_motivation'],
@@ -281,8 +284,13 @@ class PatientService
             'attempted_no_success_challenges' => $request['attempted_no_success_challenges'],
             'what_stopped_you_from_continue' => $request['what_stopped_you_from_continue'],
             'what_has_prevented_you_from_restarting' => $request['what_has_prevented_you_from_restarting'],
+            'what_stopped_you_from_continuing_to_lose_weight' => $request['what_stopped_you_from_continuing_to_lose_weight'],
+            'what_has_prevented_you_from_trying_again' => $request['what_has_prevented_you_from_trying_again'],
+            'in_the_reasons_for_current_weight' => $request['in_the_reasons_for_current_weight'],
             'confident_factor' => $request['confident_factor'],
             'confident_to_change_encouragement' => $request['confident_to_change_encouragement'],
+            'how_hard_have_you_really_tried_to_lose_weight' => $request['how_hard_have_you_really_tried_to_lose_weight'],
+            'roughly_how_many_times_have_you_tried' => $request['roughly_how_many_times_have_you_tried'],
             'look_forward_factors' => $request['look_forward_factors'],
 
         ];
@@ -426,7 +434,7 @@ class PatientService
         $task1PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask1);
         $task1Status = $this->getStatus($task1PatientDailyStatusDetails);
         if (count($task1Status) > 0){
-            if ($task1Status[0] == "Yes"){
+            if (in_array('Yes', $task1Status)){
                 $task1CheckedArr =[
                     "recommendedTask1" => "Done"
                 ];
@@ -435,6 +443,7 @@ class PatientService
                     "recommendedTask1" => "Not Done"
                 ];
             }
+
         }
 
         if (!($patientRecommendedTaskArr[1] == "")) {
@@ -442,7 +451,7 @@ class PatientService
             $task2PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask2);
             $task2Status = $this->getStatus($task2PatientDailyStatusDetails);
             if (count($task2Status) > 0){
-                if ($task2Status[0] == "Yes"){
+                if (in_array('Yes', $task2Status)){
                     $task2CheckedArr =[
                         "recommendedTask2" => "Done"
                     ];
@@ -454,7 +463,7 @@ class PatientService
                 return array_merge($task1CheckedArr, $task2CheckedArr);
             }
         }
-        return array_merge($task1CheckedArr);
+        return $task1CheckedArr;
     }
 
     public function getStatus($patientDailyStatusDetailsOfTasks)
@@ -470,7 +479,6 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
-//        dd($patientRecommendedTask);
         if ($patientRecommendedTask == 0) {
             return false;
         } else {
