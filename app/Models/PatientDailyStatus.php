@@ -26,7 +26,10 @@ class PatientDailyStatus extends Model
         'what_would_make_that_a_ten',
         'how_easy_it_was_the_goal_to_complete',
         'how_fun_was_the_goal',
-        'complete_the_goal_tomorrow_rate'
+        'complete_the_goal_tomorrow_rate',
+        'start_Time',
+        'end_Time',
+        'time_diff'
 
     ];
 }

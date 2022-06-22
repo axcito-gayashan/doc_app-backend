@@ -31,6 +31,9 @@ return new class extends Migration
             $table->string('challange_barrier')->nullable();
             $table->string('likelihood_you_will_complete_the_challenge_tomorrow')->nullable();
             $table->string('what_would_make_that_a_ten')->nullable();
+            $table->string('start_Time');
+            $table->string('end_Time');
+            $table->string('time_diff');
         });
     }
 
