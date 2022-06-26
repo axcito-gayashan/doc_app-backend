@@ -109,4 +109,8 @@ interface PatientServiceInterface
 
     public function getPatientFollowUpDetailsByMobileNumber($mobile_number): mixed;
 
+    public function getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date): mixed;
+
+    public function getPatientNoFollowRec($mobile_number,$from_date,$to_date);
+
 }

@@ -351,6 +351,11 @@ class PatientRepository implements PatientServiceInterface
             [
                 'goal_id' => $data['goal_id'],
                 'goal' => $data['goal'],
+                'target_weight' => $data['target_weight'],
+                'desired_time_frame' => $data['desired_time_frame'],
+                'how_much_do_you_love_food' => $data['how_much_do_you_love_food'],
+                'how_would_you_rate_your_self_control' => $data['how_would_you_rate_your_self_control'],
+                'how_many_times_week_do_i_exercise' => $data['how_many_times_week_do_i_exercise'],
                 'motivation_factor_for_goal_manual' => $data['motivation_factor_for_goal_manual'],
                 'motivation_factor_for_goal_selected' => $data['motivation_factor_for_goal_selected'],
                 'level_of_motivation' => $data['level_of_motivation'],
@@ -362,8 +367,15 @@ class PatientRepository implements PatientServiceInterface
                 'attempted_yes_success_challenges' => $data['attempted_yes_success_challenges'],
                 'attempted_no_success_factors' => $data['attempted_no_success_factors'],
                 'attempted_no_success_challenges' => $data['attempted_no_success_challenges'],
+                'what_stopped_you_from_continue' => $data['what_stopped_you_from_continue'],
+                'what_has_prevented_you_from_restarting' => $data['what_has_prevented_you_from_restarting'],
+                'what_stopped_you_from_continuing_to_lose_weight' => $data['what_stopped_you_from_continuing_to_lose_weight'],
+                'what_has_prevented_you_from_trying_again' => $data['what_has_prevented_you_from_trying_again'],
+                'in_the_reasons_for_current_weight' => $data['in_the_reasons_for_current_weight'],
                 'confident_factor' => $data['confident_factor'],
                 'confident_to_change_encouragement' => $data['confident_to_change_encouragement'],
+                'how_hard_have_you_really_tried_to_lose_weight' => $data['how_hard_have_you_really_tried_to_lose_weight'],
+                'roughly_how_many_times_have_you_tried' => $data['roughly_how_many_times_have_you_tried'],
                 'look_forward_factors' => $data['look_forward_factors'],
             ]
         );
@@ -433,6 +445,29 @@ class PatientRepository implements PatientServiceInterface
     {
         try {
             return PatientFollowUp::where('mobile_number', $mobile_number)->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date): mixed
+    {
+        try {
+//            dd(PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get());
+            return PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getPatientNoFollowRec($mobile_number, $from_date, $to_date)
+    {
+        try {
+//            dd($mobile_number);
+//            dd(PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray());
+            return PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray();
+//            whereBetween('eval_date', [$from_date, $to_date])->where('failure_reason', 'No')->get()->toArray());
+//            return PatientDailyStatus::select('all')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
         }

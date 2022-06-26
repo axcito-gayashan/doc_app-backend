@@ -341,4 +341,28 @@ class PatientController extends Controller
         }
     }
 
+    public function getPatientDailyStatusByMobileNumber(Request $request)
+    {
+        $filteredValue = $this->patientService->getPatientDailyStatusByMobileNumber($request->all());
+        switch ($filteredValue === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient daily status successfully retrieved', $filteredValue, Response::HTTP_OK);
+        }
+    }
+
+    public function getPatientNoFollowRec(Request $request)
+    {
+        $filteredValue = $this->patientService->getPatientNoFollowRec($request->all());
+        switch ($filteredValue === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient daily status successfully retrieved', $filteredValue, Response::HTTP_OK);
+        }
+    }
+
 }
