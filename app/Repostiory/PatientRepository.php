@@ -453,7 +453,21 @@ class PatientRepository implements PatientServiceInterface
     public function getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date): mixed
     {
         try {
+//            dd(PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get());
             return PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getPatientNoFollowRec($mobile_number, $from_date, $to_date)
+    {
+        try {
+//            dd($mobile_number);
+//            dd(PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray());
+            return PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray();
+//            whereBetween('eval_date', [$from_date, $to_date])->where('failure_reason', 'No')->get()->toArray());
+//            return PatientDailyStatus::select('all')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
