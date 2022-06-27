@@ -60,6 +60,4 @@ Route::group([
     Route::post('/getPatientFollowUpDetailsByMobileNumber', [PatientController::class, 'getPatientFollowUpDetailsByMobileNumber']);
     Route::post('/getPatientDailyStatusByMobileNumber', [PatientController::class, 'getPatientDailyStatusByMobileNumber']);
     Route::post('/getPatientNoFollowRec', [PatientController::class, 'getPatientNoFollowRec']);
-
-
 });
