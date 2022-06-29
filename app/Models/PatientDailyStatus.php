@@ -29,7 +29,7 @@ class PatientDailyStatus extends Model
         'complete_the_goal_tomorrow_rate',
         'start_Time',
         'end_Time',
-        'time_diff'
+        'time_diff',
         'ideas_to_make_the_goal_more_easier_or_fun',
         'what_would_make_that_less_than_five'
     ];
