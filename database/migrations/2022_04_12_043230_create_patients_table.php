@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('ethnicity');
             $table->string('relationship_status');
             $table->string('highest_education');
+            $table->timestamps();
 //            $table->boolean('interview_completed');
         });
     }
