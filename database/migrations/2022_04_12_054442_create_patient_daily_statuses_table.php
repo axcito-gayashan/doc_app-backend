@@ -24,8 +24,8 @@ return new class extends Migration
             $table->integer('how_easy_it_was_the_goal_to_complete')->nullable();
             $table->integer('how_fun_was_the_goal')->nullable();
             $table->string('failure_reason')->nullable();
-            $table->string('what_did_you_enjoy_most_about')->nullable();
-            $table->string('best_experience_ever')->nullable();
+            $table->longText('what_did_you_enjoy_most_about')->nullable();
+            $table->longText('best_experience_ever')->nullable();
             $table->string('what_would_have_helped_complete_the_goal')->nullable();
             $table->integer('complete_the_goal_tomorrow_rate')->nullable();
             $table->string('challange_barrier')->nullable();
