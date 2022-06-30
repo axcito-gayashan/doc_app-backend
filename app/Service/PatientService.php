@@ -565,4 +565,19 @@ class PatientService
             return Constants::INVALID_PHONE_NUMBER;
         }
     }
+
+    public function getAllPatientByFollowRec($request)
+    {
+
+        $from_date = date($request['from_date']);
+        $to_date = date($request['to_date']);
+        $follow_rec = $request['follow_rec'];
+//        dd($from_date, $to_date, $follow_rec);
+        $filteredValue = $this->patientServiceInterface->getAllPatientByFollowRec($from_date,$to_date, $follow_rec);
+        if (count($filteredValue) > 0) {
+            return $filteredValue;
+        } else {
+            return Constants::INVALID_PHONE_NUMBER;
+        }
+    }
 }

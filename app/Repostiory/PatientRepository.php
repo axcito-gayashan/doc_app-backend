@@ -473,4 +473,16 @@ class PatientRepository implements PatientServiceInterface
             return $e->getMessage();
         }
     }
+
+    public function getAllPatientByFollowRec($from_date,$to_date, $follow_rec)
+    {
+        try {
+            if ($follow_rec === 'Yes')
+                return PatientDailyStatus::select('eval_date', 'follow_rec', 'how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->whereBetween('eval_date', [$from_date, $to_date])->get();
+            else
+                return PatientDailyStatus::select('eval_date', 'follow_rec', 'failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
