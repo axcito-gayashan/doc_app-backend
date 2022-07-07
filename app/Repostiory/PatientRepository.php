@@ -16,6 +16,7 @@ use App\Models\PatientDailyStatus;
 use App\Models\PatientFollowUp;
 use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
+use App\Models\PatientSocialDeterminantsOfHealth;
 use App\Models\PatientTechnologicalLiteracy;
 use App\Models\PreviousGoalDetails;
 use App\Models\RecommendedTasks;
@@ -81,7 +82,7 @@ class PatientRepository implements PatientServiceInterface
      * @return array|string
      */
 
-    public function addNewPatient(array $patientDetails, array $medicalRatio, array $technologyLiteracy, array $goal): array|string
+    public function addNewPatient(array $patientDetails, array $medicalRatio, array $patientSocialDeterminantsOfHealth, array $technologyLiteracy, array $goal): array|string
     {
         try {
             $user = Patient::where('mobile_number', '=', $patientDetails['mobile_number'])->first();
@@ -92,6 +93,10 @@ class PatientRepository implements PatientServiceInterface
 
                 $newUser = new PatientMedicalRatio();
                 $newUser->fill($medicalRatio);
+                $newUser->save();
+
+                $newUser = new PatientSocialDeterminantsOfHealth();
+                $newUser->fill($patientSocialDeterminantsOfHealth);
                 $newUser->save();
 
                 $newUser = new PatientTechnologicalLiteracy();
@@ -137,7 +142,7 @@ class PatientRepository implements PatientServiceInterface
      * @return string|int
      */
 
-    public function updatePatient($patientDetails, $medicalRatio, $technologyLiteracy, $goal): string|int
+    public function updatePatient($patientDetails, $medicalRatio, $patientSocialDeterminantsOfHealth, $technologyLiteracy, $goal): string|int
     {
         $userPhone = $patientDetails['mobile_number'];
         $status = '';
@@ -169,6 +174,17 @@ class PatientRepository implements PatientServiceInterface
                         'lipid_pannel' => $medicalRatio['lipid_pannel'],
                         'a1c' => $medicalRatio['a1c'],
                         'current_health_status' => $medicalRatio['current_health_status']
+                    ]
+                );
+
+                PatientSocialDeterminantsOfHealth::where(['mobile_number' => $userPhone])->update(
+                    [
+                        'mobile_number' => $patientSocialDeterminantsOfHealth['mobile_number'],
+                        'agreeableness_level' => $patientSocialDeterminantsOfHealth['agreeableness_level'],
+                        'extraversion_level' => $patientSocialDeterminantsOfHealth['extraversion_level'],
+                        'conciousnes_level' => $patientSocialDeterminantsOfHealth['conciousnes_level'],
+                        'openness_level' => $patientSocialDeterminantsOfHealth['openness_level'],
+                        'neuroticism_level' => $patientSocialDeterminantsOfHealth['neuroticism_level'],
                     ]
                 );
 
@@ -212,10 +228,11 @@ class PatientRepository implements PatientServiceInterface
 
             $patient1 = Patient::find($mobile_number)->toArray();
             $patient2 = Patient::find($mobile_number)->getPatientMedicalRatio->toArray();
-            $patient3 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
-            $patient4 = Patient::find($mobile_number)->getPatientGoal->toArray();
+            $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth->toArray();
+            $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
+            $patient5 = Patient::find($mobile_number)->getPatientGoal->toArray();
 
-            return array_merge($patient1, $patient2, $patient3, $patient4);
+            return array_merge($patient1, $patient2, $patient3, $patient4, $patient5);
 
 //            $patientDataArray['first_name'] = $patient1->first_name;
 //            dd($patientDataArray);

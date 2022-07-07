@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string('bp');
             $table->string('lipid_pannel');
             $table->string('a1c');
-            $table->string('current_health_status');
+            $table->longText('current_health_status');
+            $table->longText('anyone_in_family_overweight');
         });
     }
 

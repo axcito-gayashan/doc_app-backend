@@ -1,4 +1,5 @@
 <?php
+
 /**
  *doctorweb
  *ASUS
@@ -107,6 +108,16 @@ class PatientService
             'lipid_pannel' => $request['lipid_pannel'],
             'a1c' => $request['a1c'],
             'current_health_status' => $request['current_health_status'],
+            'anyone_in_family_overweight' => $request['anyone_in_family_overweight'],
+        ];
+
+        $patientSocialDeterminantsOfHealth = [
+            'mobile_number' => $request['mobile_number'],
+            'agreeableness_level' => $request['agreeableness_level'],
+            'extraversion_level' => $request['extraversion_level'],
+            'conciousnes_level' => $request['conciousnes_level'],
+            'openness_level' => $request['openness_level'],
+            'neuroticism_level' => $request['neuroticism_level'],
         ];
 
         $technologyLiteracy = [
@@ -122,17 +133,15 @@ class PatientService
             'mobile_number' => $request['mobile_number'],
             'selected_goal' => $request['selected_goal'],
             'selected_behaviour_change' => $request['selected_behaviour_change'],
-
         ];
 
-        $filteredValue = $this->patientServiceInterface->addNewPatient($patientDetails, $medicalRatio, $technologyLiteracy, $goal);
+        $filteredValue = $this->patientServiceInterface->addNewPatient($patientDetails, $medicalRatio, $patientSocialDeterminantsOfHealth, $technologyLiteracy, $goal);
 
         if ($filteredValue['mobile_number'] == null) {
             return Constants::REPEATED_PHONE_NUMBER;
         } else {
             return $filteredValue;
         }
-
     }
 
     /**
@@ -183,6 +192,15 @@ class PatientService
             'current_health_status' => $request['current_health_status'],
         ];
 
+        $patientSocialDeterminantsOfHealth = [
+            'mobile_number' => $request['mobile_number'],
+            'agreeableness_level' => $request['agreeableness_level'],
+            'extraversion_level' => $request['extraversion_level'],
+            'conciousnes_level' => $request['conciousnes_level'],
+            'openness_level' => $request['openness_level'],
+            'neuroticism_level' => $request['neuroticism_level'],
+        ];
+
         $technologyLiteracy = [
             'mobile_number' => $request['mobile_number'],
             'download_use_skill_level' => $request['download_use_skill_level'],
@@ -199,7 +217,7 @@ class PatientService
 
         ];
 
-        return $this->patientServiceInterface->updatePatient($patientDetails, $medicalRatio, $technologyLiteracy, $goal);
+        return $this->patientServiceInterface->updatePatient($patientDetails, $medicalRatio, $patientSocialDeterminantsOfHealth, $technologyLiteracy, $goal);
     }
 
     /**
@@ -275,7 +293,7 @@ class PatientService
             'motivation_target_10_text' => $request['motivation_target_10_text'],
             'contribute_favtors_selected' => $request['contribute_favtors_selected'],
             'contribute_favtors_frequency' => $request['contribute_favtors_frequency'],
-//            'contribute_favtors_manually_added' => $request['contribute_favtors_manually_added'],
+            //            'contribute_favtors_manually_added' => $request['contribute_favtors_manually_added'],
             'no_one_fouca_factor' => $request['no_one_fouca_factor'],
             'previously_attempted' => $request['previously_attempted'],
             'attempted_yes_success_factors' => $request['attempted_yes_success_factors'],
@@ -296,7 +314,7 @@ class PatientService
         ];
 
         $filteredValue = $this->patientServiceInterface->addWeightLoseGoalDetails($goalData);
-//        dd($filteredValue);
+        //        dd($filteredValue);
 
         if ($filteredValue === "1005") {
             return Constants::PATIENT_ALL_READY_EXIST_IN_PATIENT_GOAL_TABLE;
@@ -318,7 +336,7 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getWeightLoseGoalDetailsByMobileNumber($mobile_number);
-//        dd($filteredValue);
+        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -345,7 +363,7 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getPreviousRecommendationByMobileNumber($mobile_number);
-//        dd($filteredValue);
+        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -363,16 +381,16 @@ class PatientService
         $mobile_number = $request['mobile_number'];
         $patientStatus = $this->patientServiceInterface->getDailyStatus($mobile_number);
 
-//        $dailyStatusArr = array(
-//            "mobile_number" => $patientStatus['mobile_number'],
-//            'first_name' => $patientStatus['first_name'],
-//            'last_name' => $patientStatus['last_name'],
-//            'age' => $patientStatus['age'],
-//            'weight' => $patientStatus['weight'],
-//            'waist_hip_ratio' => $patientStatus['waist_hip_ratio'],
-//            'selected_goal' => $patientStatus['selected_goal'],
-//            'recommendation' => $patientStatus['recommendation'],
-//        );
+        //        $dailyStatusArr = array(
+        //            "mobile_number" => $patientStatus['mobile_number'],
+        //            'first_name' => $patientStatus['first_name'],
+        //            'last_name' => $patientStatus['last_name'],
+        //            'age' => $patientStatus['age'],
+        //            'weight' => $patientStatus['weight'],
+        //            'waist_hip_ratio' => $patientStatus['waist_hip_ratio'],
+        //            'selected_goal' => $patientStatus['selected_goal'],
+        //            'recommendation' => $patientStatus['recommendation'],
+        //        );
         $dailyStatusArr = array(
             "patient_id" => $patientStatus['mobile_number'],
             'patient_fname' => $patientStatus['first_name'],
@@ -388,7 +406,6 @@ class PatientService
         } else {
             return Constants::INVALID_PHONE_NUMBER;
         }
-
     }
 
     public function editPatientByMobileNumber($request)
@@ -404,7 +421,7 @@ class PatientService
             'recommended_tasks' => $request['recommended_tasks'],
         ];
         $addPatientRecommendedTaskStatus = $this->patientServiceInterface->addPatientRecommendedTask($data);
-//        dd($addPatientRecommendedTaskStatus);
+        //        dd($addPatientRecommendedTaskStatus);
         if ($addPatientRecommendedTaskStatus == 23000) {
             return Constants::INVALID_PHONE_NUMBER;
         } else {
@@ -416,7 +433,7 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
-//        dd($patientRecommendedTask);
+        //        dd($patientRecommendedTask);
         if ($patientRecommendedTask == 0) {
             return false;
         } else {
@@ -428,49 +445,56 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $task1CheckedArr = [];
+        $task2CheckedArr = [];
         $patientRecommendedTask = $this->patientServiceInterface->getPatientRecommendedTask($mobile_number);
         $patientRecommendedTaskArr = explode("|", $patientRecommendedTask['recommended_tasks']);
         $patientRecommendedTask1 = $patientRecommendedTaskArr[0];
         $task1PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask1);
         $task1Status = $this->getStatus($task1PatientDailyStatusDetails);
-        if (count($task1Status) > 0){
-            if (in_array('Yes', $task1Status)){
-                $task1CheckedArr =[
+        if (count($task1Status) > 0) {
+            if (in_array('Yes', $task1Status)) {
+                $task1CheckedArr = [
                     "recommendedTask1" => "Done"
                 ];
-            }else{
-                $task1CheckedArr =[
+            } else {
+                $task1CheckedArr = [
                     "recommendedTask1" => "Not Done"
                 ];
             }
-
+        } else {
+            $task1CheckedArr = [
+                "recommendedTask1" => "Not Done"
+            ];
         }
-
         if (!($patientRecommendedTaskArr[1] == "")) {
             $patientRecommendedTask2 = $patientRecommendedTaskArr[1];
             $task2PatientDailyStatusDetails = $this->patientServiceInterface->checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask2);
             $task2Status = $this->getStatus($task2PatientDailyStatusDetails);
-            if (count($task2Status) > 0){
-                if (in_array('Yes', $task2Status)){
-                    $task2CheckedArr =[
+            if (count($task2Status) > 0) {
+                if (in_array('Yes', $task2Status)) {
+                    $task2CheckedArr = [
                         "recommendedTask2" => "Done"
                     ];
-                }else{
-                    $task2CheckedArr =[
+                } else {
+                    $task2CheckedArr = [
                         "recommendedTask2" => "Not Done"
                     ];
                 }
-                return array_merge($task1CheckedArr, $task2CheckedArr);
+            } else {
+                $task2CheckedArr = [
+                    "recommendedTask2" => "Not Done"
+                ];
             }
         }
-        return $task1CheckedArr;
+        return array_merge($task1CheckedArr, $task2CheckedArr);
+        //        return $task1CheckedArr;
     }
 
     public function getStatus($patientDailyStatusDetailsOfTasks)
     {
         $statusArr = array();
         for ($x = 0; $x < count($patientDailyStatusDetailsOfTasks); $x++) {
-            array_push($statusArr,$patientDailyStatusDetailsOfTasks[$x]['follow_rec']);
+            array_push($statusArr, $patientDailyStatusDetailsOfTasks[$x]['follow_rec']);
         }
         return $statusArr;
     }
@@ -509,7 +533,7 @@ class PatientService
             'time_out' => $request['time_out'],
         );
 
-//        return $this->patientServiceInterface->patientFollowUp($followUpDetails);
+        //        return $this->patientServiceInterface->patientFollowUp($followUpDetails);
         $filteredValue = $this->patientServiceInterface->patientFollowUp($followUpDetails);
         if ($filteredValue['mobile_number'] == null) {
             return Constants::INVALID_PHONE_NUMBER;
@@ -522,7 +546,7 @@ class PatientService
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getPatientFollowUpDetailsByMobileNumber($mobile_number);
-//        dd($filteredValue);
+        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -533,14 +557,14 @@ class PatientService
     public function getPatientDailyStatusByMobileNumber($request)
     {
         $mobile_number = $request['mobile_number'];
-//        $from_date = $request['from_date'];
-//        $to_date = $request['to_date'];
+        //        $from_date = $request['from_date'];
+        //        $to_date = $request['to_date'];
 
         $from_date = date($request['from_date']);
         $to_date = date($request['to_date']);
 
         $filteredValue = $this->patientServiceInterface->getPatientDailyStatusByMobileNumber($mobile_number, $from_date, $to_date);
-//        dd($filteredValue);
+        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -551,14 +575,14 @@ class PatientService
     public function getPatientNoFollowRec($request)
     {
         $mobile_number = $request['mobile_number'];
-//        $from_date = $request['from_date'];
-//        $to_date = $request['to_date'];
+        //        $from_date = $request['from_date'];
+        //        $to_date = $request['to_date'];
 
         $from_date = date($request['from_date']);
         $to_date = date($request['to_date']);
 
         $filteredValue = $this->patientServiceInterface->getPatientNoFollowRec($mobile_number, $from_date, $to_date);
-//        dd($filteredValue);
+        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -572,8 +596,8 @@ class PatientService
         $from_date = date($request['from_date']);
         $to_date = date($request['to_date']);
         $follow_rec = $request['follow_rec'];
-//        dd($from_date, $to_date, $follow_rec);
-        $filteredValue = $this->patientServiceInterface->getAllPatientByFollowRec($from_date,$to_date, $follow_rec);
+        //        dd($from_date, $to_date, $follow_rec);
+        $filteredValue = $this->patientServiceInterface->getAllPatientByFollowRec($from_date, $to_date, $follow_rec);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
