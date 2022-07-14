@@ -37,7 +37,7 @@ interface PatientServiceInterface
      * @return mixed
      */
 
-    public function addNewPatient(array $patientDetails, array $medicalRatio, array $technologyLiteracy, array $goal): mixed;
+    public function addNewPatient(array $patientDetails, array $medicalRatio, array $patientSocialDeterminantsOfHealth, array $technologyLiteracy, array $goal): mixed;
 
     /**
      * @param $mobile_number
@@ -54,7 +54,7 @@ interface PatientServiceInterface
      * @return mixed
      */
 
-    public function updatePatient($patientDetails,$medicalRatio,$technologyLiteracy,$goal): mixed;
+    public function updatePatient($patientDetails, $medicalRatio, $patientSocialDeterminantsOfHealth, $technologyLiteracy,$goal): mixed;
 
     /**
      * @param $mobile_number
@@ -114,4 +114,8 @@ interface PatientServiceInterface
     public function getPatientNoFollowRec($mobile_number,$from_date,$to_date);
 
     public function getAllPatientByFollowRec($from_date,$to_date, $follow_rec);
+
+    public function getAlert();
+
+    public function getVideoUrlByVideoId($vid_id);
 }

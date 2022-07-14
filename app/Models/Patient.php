@@ -32,6 +32,11 @@ class Patient extends Model
         return $this->hasOne(PatientMedicalRatio::class,'mobile_number');
     }
 
+    public function getPatientSocialDeterminantsOfHealth(): HasOne
+    {
+        return $this->hasOne(PatientSocialDeterminantsOfHealth::class,'mobile_number');
+    }
+
     public function getPatientTechnologicalLiteracy(): HasOne
     {
         return $this->hasOne(PatientTechnologicalLiteracy::class,'mobile_number');
