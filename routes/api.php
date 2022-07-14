@@ -61,4 +61,6 @@ Route::group([
     Route::post('/getPatientDailyStatusByMobileNumber', [PatientController::class, 'getPatientDailyStatusByMobileNumber']);
     Route::post('/getPatientNoFollowRec', [PatientController::class, 'getPatientNoFollowRec']);
     Route::post('/getAllPatientByFollowRec', [PatientController::class, 'getAllPatientByFollowRec']);
+    Route::get('/getAlert', [PatientController::class, 'getAlert']);
+    Route::post('/getVideoUrlByVideoId', [PatientController::class, 'getVideoUrlByVideoId']);
 });
