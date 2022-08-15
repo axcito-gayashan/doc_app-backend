@@ -501,4 +501,5 @@ class PatientRepository implements PatientServiceInterface
             dd($exception);
         }
     }
+    
 }
