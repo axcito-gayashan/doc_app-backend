@@ -114,4 +114,9 @@ interface PatientServiceInterface
     public function getPatientNoFollowRec($mobile_number,$from_date,$to_date);
 
     public function getAllPatientByFollowRec($from_date,$to_date, $follow_rec);
+
+    public function getAlert();
+
+    public function getVideoUrlByVideoId($vid_id);
+
 }

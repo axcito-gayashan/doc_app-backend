@@ -10,6 +10,7 @@
 namespace App\Repostiory;
 
 use App\Constants\Constants;
+use App\Models\Alert;
 use App\Models\DoctorRecommendation;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
@@ -20,6 +21,7 @@ use App\Models\PatientTechnologicalLiteracy;
 use App\Models\PreviousGoalDetails;
 use App\Models\RecommendedTasks;
 use App\Models\User;
+use App\Models\VideoUrl;
 use App\Models\WeightLoseGoal;
 use App\ServiceInterface\PatientServiceInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -483,6 +485,20 @@ class PatientRepository implements PatientServiceInterface
                 return PatientDailyStatus::select('eval_date', 'follow_rec', 'failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    public function getAlert()
+    {
+        return Alert::all();
+    }
+
+    public function getVideoUrlByVideoId($vid_id)
+    {
+        try {
+            return VideoUrl::where('video_id', $vid_id)->get();
+        }catch (\Exception $exception){
+            dd($exception);
         }
     }
 }
