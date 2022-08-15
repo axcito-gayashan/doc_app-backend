@@ -376,4 +376,14 @@ class PatientController extends Controller
                 return $this->responseHelper->response('success', 'Patient daily status successfully retrieved', $filteredValue, Response::HTTP_OK);
         }
     }
+
+    public function getAlert()
+    {
+        return $this->patientService->getAlert();
+    }
+
+    public function getVideoUrlByVideoId(Request $request)
+    {
+        return $this->patientService->getVideoUrlByVideoId($request);
+    }
 }

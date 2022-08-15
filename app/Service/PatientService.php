@@ -580,4 +580,15 @@ class PatientService
             return Constants::INVALID_PHONE_NUMBER;
         }
     }
+
+    public function getAlert()
+    {
+       return $this->patientServiceInterface->getAlert();
+    }
+
+    public function getVideoUrlByVideoId($data)
+    {
+        $vid_id = $data->all()['vid_id'];
+        return $this->patientServiceInterface->getVideoUrlByVideoId($vid_id);
+    }
 }
