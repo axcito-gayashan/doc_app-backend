@@ -136,7 +136,6 @@ class PatientService
         ];
 
         $filteredValue = $this->patientServiceInterface->addNewPatient($patientDetails, $medicalRatio, $patientSocialDeterminantsOfHealth, $technologyLiteracy, $goal);
-
         if ($filteredValue['mobile_number'] == null) {
             return Constants::REPEATED_PHONE_NUMBER;
         } else {
@@ -332,11 +331,10 @@ class PatientService
      * @return int|array
      */
 
-    public function getWeightLoseGoalDetailsByMobileNumber($request): int|array
+    public function getWeightLoseGoalDetailsByMobileNumber($request)
     {
         $mobile_number = $request['mobile_number'];
         $filteredValue = $this->patientServiceInterface->getWeightLoseGoalDetailsByMobileNumber($mobile_number);
-        //        dd($filteredValue);
         if (count($filteredValue) > 0) {
             return $filteredValue;
         } else {
@@ -614,5 +612,10 @@ class PatientService
     {
         $vid_id = $data->all()['vid_id'];
         return $this->patientServiceInterface->getVideoUrlByVideoId($vid_id);
+    }
+
+    public function getVideoUrl()
+    {
+        return $this->patientServiceInterface->getVideoUrl();
     }
 }

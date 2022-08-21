@@ -118,4 +118,6 @@ interface PatientServiceInterface
     public function getAlert();
 
     public function getVideoUrlByVideoId($vid_id);
+
+    public function getVideoUrl();
 }

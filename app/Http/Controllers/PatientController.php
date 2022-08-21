@@ -386,4 +386,9 @@ class PatientController extends Controller
     {
         return $this->patientService->getVideoUrlByVideoId($request);
     }
+
+    public function getVideoUrl()
+    {
+        return $this->patientService->getVideoUrl();
+    }
 }

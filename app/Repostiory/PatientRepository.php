@@ -101,9 +101,9 @@ class PatientRepository implements PatientServiceInterface
                 $newUser->fill($patientSocialDeterminantsOfHealth);
                 $newUser->save();
 
-                $newUser = new PatientTechnologicalLiteracy();
-                $newUser->fill($technologyLiteracy);
-                $newUser->save();
+//                $newUser = new PatientTechnologicalLiteracy();
+//                $newUser->fill($technologyLiteracy);
+//                $newUser->save();
 
                 $newUser = new PatientGoal();
                 $newUser->fill($goal);
@@ -230,16 +230,17 @@ class PatientRepository implements PatientServiceInterface
 
             $patient1 = Patient::find($mobile_number)->toArray();
             $patient2 = Patient::find($mobile_number)->getPatientMedicalRatio->toArray();
-            $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth;
-            if ($patient3 == null){
-                $patient3 = [];
-            }else{
+            // $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth->toArray();
+            // $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
+            $patient3 = [];
+            if(Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth != null){
                 $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth->toArray();
             }
-            $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
+            // $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
             $patient5 = Patient::find($mobile_number)->getPatientGoal->toArray();
 
-            return array_merge($patient1, $patient2, $patient3, $patient4, $patient5);
+            // return array_merge($patient1, $patient2, $patient3, $patient4, $patient5);
+            return array_merge($patient1, $patient2, $patient3, $patient5);
 
 //            $patientDataArray['first_name'] = $patient1->first_name;
 //            dd($patientDataArray);
@@ -310,10 +311,12 @@ class PatientRepository implements PatientServiceInterface
     public function getWeightLoseGoalDetailsByMobileNumber($mobile_number)
     {
 //        dd($mobile_number);
-//        dd(WeightLoseGoal::find($mobile_number)->toArray());
+//        dd(WeightLoseGoal::find($mobile_number));
+//        return WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray();
+
+//        dd(WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray());
         try {
             return WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray();
-//            dd(WeightLoseGoal::where('mobile_number', $mobile_number)->firstOrFail()->toArray());
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -522,5 +525,10 @@ class PatientRepository implements PatientServiceInterface
         }catch (\Exception $exception){
             return  $exception->getMessage();
         }
+    }
+
+    public function getVideoUrl()
+    {
+        return VideoUrl::all();
     }
 }

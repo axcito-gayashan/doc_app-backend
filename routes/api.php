@@ -63,4 +63,5 @@ Route::group([
     Route::post('/getAllPatientByFollowRec', [PatientController::class, 'getAllPatientByFollowRec']);
     Route::get('/getAlert', [PatientController::class, 'getAlert']);
     Route::post('/getVideoUrlByVideoId', [PatientController::class, 'getVideoUrlByVideoId']);
+    Route::get('/getVideoUrl', [PatientController::class, 'getVideoUrl']);
 });
