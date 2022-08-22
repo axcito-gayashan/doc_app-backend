@@ -120,4 +120,6 @@ interface PatientServiceInterface
     public function getVideoUrlByVideoId($vid_id);
 
     public function getVideoUrl();
+
+    public function getPatientLastStatusResponsesByMobileNumber($mobile_number, $from_date, $to_date);
 }

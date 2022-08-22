@@ -64,4 +64,5 @@ Route::group([
     Route::get('/getAlert', [PatientController::class, 'getAlert']);
     Route::post('/getVideoUrlByVideoId', [PatientController::class, 'getVideoUrlByVideoId']);
     Route::get('/getVideoUrl', [PatientController::class, 'getVideoUrl']);
+    Route::post('/getPatientLastStatusResponsesByMobileNumber', [PatientController::class, 'getPatientLastStatusResponsesByMobileNumber']);
 });

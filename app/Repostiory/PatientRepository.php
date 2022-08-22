@@ -531,4 +531,13 @@ class PatientRepository implements PatientServiceInterface
     {
         return VideoUrl::all();
     }
+
+    public function getPatientLastStatusResponsesByMobileNumber($mobile_number, $from_date, $to_date)
+    {
+        try {
+            return PatientDailyStatus::select('eval_date', 'follow_rec')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
