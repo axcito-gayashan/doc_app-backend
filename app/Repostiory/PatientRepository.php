@@ -15,6 +15,7 @@ use App\Models\DoctorRecommendation;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
 use App\Models\PatientFollowUp;
+use App\Models\PatientFollowUpTaskInfo;
 use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
 use App\Models\PatientSocialDeterminantsOfHealth;
@@ -538,6 +539,79 @@ class PatientRepository implements PatientServiceInterface
             return PatientDailyStatus::select('eval_date', 'follow_rec')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+	/**
+	 *
+	 * @param mixed $task_infor
+	 *
+	 * @return mixed
+	 */
+	function addPatientFolloupTaskInfor($task_infor): mixed
+    {
+        try
+        {
+            $patientExist = Patient::where('mobile_number', $task_infor['mobile_number'])->exists();
+            if ($patientExist) {
+                $pftask_infor = new PatientFollowUpTaskInfo();
+                $pftask_infor->fill($task_infor);
+                return $pftask_infor->save();
+            }
+            else
+            {
+                return Constants::PARENT_RECORD_DOES_NOT_EXIST;
+            }
+        }
+        catch (\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+	}
+
+	/**
+	 *
+	 * @param mixed $mobile_number
+	 *
+	 * @return mixed
+	 */
+	function getPatientFolloupTaskInforsByPatientMobileNumber($mobile_number): mixed
+    {
+        try
+        {
+            return PatientFollowUpTaskInfo::where('mobile_number', $mobile_number)->get();
+        }
+        catch (\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+	}
+
+
+	/**
+	 *
+	 * @return mixed
+	 */
+	function getPatientFolloupTaskInfors(): mixed
+    {
+        try
+        {
+            return PatientFollowUpTaskInfo::all();
+        }
+        catch (\Exception $ex)
+        {
+            return $ex->getMessage();
+        }
+	}
+
+    public function getPatientFollowupTaskReportData(): mixed
+    {
+        try
+        {
+            return PatientFollowUp::join('patients', 'patient_follow_ups.mobile_number', '=', 'patients.mobile_number')->get(['patients.mobile_number', 'patients.first_name', 'patients.last_name', 'patient_follow_ups.recommendation_task1', 'patient_follow_ups.recommendation_task2']);
+        }
+        catch (\Exception $ex)
+        {
+            return $ex->getMessage();
         }
     }
 }

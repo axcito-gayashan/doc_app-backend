@@ -122,4 +122,12 @@ interface PatientServiceInterface
     public function getVideoUrl();
 
     public function getPatientLastStatusResponsesByMobileNumber($mobile_number, $from_date, $to_date);
+
+    public function addPatientFolloupTaskInfor($task_infor): mixed;
+
+    public function getPatientFolloupTaskInforsByPatientMobileNumber($mobile_number): mixed;
+
+    public function getPatientFolloupTaskInfors(): mixed;
+
+    public function getPatientFollowupTaskReportData(): mixed;
 }

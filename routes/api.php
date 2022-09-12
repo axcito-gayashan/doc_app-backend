@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\PatientController;
+use App\Models\PatientFollowUpTaskInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -65,4 +66,8 @@ Route::group([
     Route::post('/getVideoUrlByVideoId', [PatientController::class, 'getVideoUrlByVideoId']);
     Route::get('/getVideoUrl', [PatientController::class, 'getVideoUrl']);
     Route::post('/getPatientLastStatusResponsesByMobileNumber', [PatientController::class, 'getPatientLastStatusResponsesByMobileNumber']);
+    Route::post('/addPatientFolloupTaskInfor', [PatientController::class, 'addPatientFolloupTaskInfor']);
+    Route::post('/getPatientFolloupTaskInforsByPatientMobileNumber', [PatientController::class, 'getPatientFolloupTaskInforsByPatientMobileNumber']);
+    Route::get('/getPatientFolloupTaskInfors', [PatientController::class, 'getPatientFolloupTaskInfors']);
+    Route::get('/getPatientFollowupTaskReportData', [PatientController::class, 'getPatientFollowupTaskReportData']);
 });

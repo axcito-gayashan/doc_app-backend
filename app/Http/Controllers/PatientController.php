@@ -403,4 +403,39 @@ class PatientController extends Controller
                 return $this->responseHelper->response('success', 'Patient daily status successfully retrieved', $filteredValue, Response::HTTP_OK);
         }
     }
+
+    public function addPatientFolloupTaskInfor(Request $request): JsonResponse
+    {
+        $taskSaved = $this->patientService->addPatientFolloupTaskInfor($request);
+        if ($taskSaved['status'] === "Success")
+        {
+            return $this->responseHelper->response('success', 'Patient status successfully retrieved', $taskSaved, Response::HTTP_OK);
+        }
+        else
+        {
+            return $this->responseHelper->response('failed', 'Invalid mobile number', $taskSaved, Response::HTTP_OK);
+        }
+    }
+
+    public function getPatientFolloupTaskInforsByPatientMobileNumber(Request $request): JsonResponse
+    {
+        $filteredValue = $this->patientService->getPatientFolloupTaskInforsByPatientMobileNumber($request->all());
+        switch ($filteredValue === 1001) {
+            case true:
+                return $this->responseHelper->response('failed', 'Invalid mobile number', null, Response::HTTP_OK);
+            default:
+            case false:
+                return $this->responseHelper->response('success', 'Patient Task Infors successfully retrieved', $filteredValue, Response::HTTP_OK);
+        }
+    }
+
+    public function getPatientFolloupTaskInfors()
+    {
+        return $this->patientService->getPatientFolloupTaskInfors();
+    }
+
+    public function getPatientFollowupTaskReportData()
+    {
+        return $this->patientService->getPatientFollowupTaskReportData();
+    }
 }
