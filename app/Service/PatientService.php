@@ -635,45 +635,32 @@ class PatientService
 
     public function addPatientFolloupTaskInfor($request)
     {
-        $task_infor = array(
-            'mobile_number' => $request['mobile_number'],
-            'task_id' => $request['task_id'],
-            'task_description' => $request['task_description'],
-            'new_strategy_calorie_option' => $request['new_strategy_calorie_option'],
-            'building_a_habit' => $request['building_a_habit'],
-            'dimensions_of_health' => $request['dimensions_of_health'],
-            'diagnosis' => $request['diagnosis'],
-            'other' => $request['other'],
-        );
-        $saved = $this->patientServiceInterface->addPatientFolloupTaskInfor($task_infor);
-        if ($saved)
-        {
-            return [
-                'status' => "Success"
-            ];
-        }
-        else
-        {
-            return [
-                'status' => Constants::INVALID_PHONE_NUMBER
-            ];
-        }
-    }
-
-    public function getPatientFolloupTaskInforsByPatientMobileNumber($request)
-    {
-        $mobile_number = $request['mobile_number'];
-        $filteredValue = $this->patientServiceInterface->getPatientFolloupTaskInforsByPatientMobileNumber($mobile_number);
-        if (count($filteredValue) > 0) {
-            return $filteredValue;
-        } else {
-            return Constants::INVALID_PHONE_NUMBER;
-        }
-    }
-
-    public function getPatientFolloupTaskInfors()
-    {
-        return $this->patientServiceInterface->getPatientFolloupTaskInfors();
+        // $task_infor = array(
+        //     'mobile_number' => $request['mobile_number'],
+        //     'task_id' => $request['task_id'],
+        //     'task_description' => $request['task_description'],
+        //     'new_strategy_calorie_option' => $request['new_strategy_calorie_option'],
+        //     'building_a_habit' => $request['building_a_habit'],
+        //     'dimensions_of_health' => $request['dimensions_of_health'],
+        //     'diagnosis' => $request['diagnosis'],
+        //     'other' => $request['other'],
+        // );
+        // $saved = $this->patientServiceInterface->addPatientFolloupTaskInfor($task_infor);
+        // if ($saved)
+        // {
+        //     return [
+        //         'status' => "Success"
+        //     ];
+        // }
+        // else
+        // {
+        //     return [
+        //         'status' => Constants::INVALID_PHONE_NUMBER
+        //     ];
+        // }
+        return [
+            'status' => Constants::INVALID_PHONE_NUMBER
+        ];
     }
 
     public function getPatientFollowupTaskReportData()

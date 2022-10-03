@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patient_follow_up_task_infos', function (Blueprint $table) {
-            $table->id('task_id');
-            $table->bigInteger('mobile_number');
-            $table->foreign('mobile_number')->references('mobile_number')->on('patients');
-            $table->string('task_name');
+        Schema::create('patient_followup_task_strategy_calorieouts', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_follow_up_task_infos');
+        Schema::dropIfExists('patient_followup_task_strategy_calorieouts');
     }
 };

@@ -67,7 +67,5 @@ Route::group([
     Route::get('/getVideoUrl', [PatientController::class, 'getVideoUrl']);
     Route::post('/getPatientLastStatusResponsesByMobileNumber', [PatientController::class, 'getPatientLastStatusResponsesByMobileNumber']);
     Route::post('/addPatientFolloupTaskInfor', [PatientController::class, 'addPatientFolloupTaskInfor']);
-    Route::post('/getPatientFolloupTaskInforsByPatientMobileNumber', [PatientController::class, 'getPatientFolloupTaskInforsByPatientMobileNumber']);
-    Route::get('/getPatientFolloupTaskInfors', [PatientController::class, 'getPatientFolloupTaskInfors']);
     Route::get('/getPatientFollowupTaskReportData', [PatientController::class, 'getPatientFollowupTaskReportData']);
 });

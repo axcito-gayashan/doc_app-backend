@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patient_follow_up_task_infos', function (Blueprint $table) {
-            $table->id('task_id');
-            $table->bigInteger('mobile_number');
-            $table->foreign('mobile_number')->references('mobile_number')->on('patients');
-            $table->string('task_name');
-            $table->timestamps();
+        Schema::table('patient_daily_statuses', function (Blueprint $table) {
+            $table->longText('comment')->after('what_will_keep_you_from_getting_bored')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_follow_up_task_infos');
+        Schema::table('patient_daily_statuses', function (Blueprint $table) {
+            $table->dropColumn('comment');
+        });
     }
 };

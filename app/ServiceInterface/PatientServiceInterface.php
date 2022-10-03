@@ -125,9 +125,5 @@ interface PatientServiceInterface
 
     public function addPatientFolloupTaskInfor($task_infor): mixed;
 
-    public function getPatientFolloupTaskInforsByPatientMobileNumber($mobile_number): mixed;
-
-    public function getPatientFolloupTaskInfors(): mixed;
-
     public function getPatientFollowupTaskReportData(): mixed;
 }

@@ -547,15 +547,15 @@ class PatientRepository implements PatientServiceInterface
 	 *
 	 * @return mixed
 	 */
-	function addPatientFolloupTaskInfor($task_infor): mixed
+	public function addPatientFolloupTaskInfor($task_infor): mixed
     {
         try
         {
             $patientExist = Patient::where('mobile_number', $task_infor['mobile_number'])->exists();
             if ($patientExist) {
-                $pftask_infor = new PatientFollowUpTaskInfo();
-                $pftask_infor->fill($task_infor);
-                return $pftask_infor->save();
+                // $pftask_infor = new PatientFollowUpTaskInfo();
+                // $pftask_infor->fill($task_infor);
+                // return $pftask_infor->save();
             }
             else
             {
@@ -566,42 +566,9 @@ class PatientRepository implements PatientServiceInterface
         {
             return $ex->getMessage();
         }
+        return Constants::PARENT_RECORD_DOES_NOT_EXIST;
 	}
 
-	/**
-	 *
-	 * @param mixed $mobile_number
-	 *
-	 * @return mixed
-	 */
-	function getPatientFolloupTaskInforsByPatientMobileNumber($mobile_number): mixed
-    {
-        try
-        {
-            return PatientFollowUpTaskInfo::where('mobile_number', $mobile_number)->get();
-        }
-        catch (\Exception $ex)
-        {
-            return $ex->getMessage();
-        }
-	}
-
-
-	/**
-	 *
-	 * @return mixed
-	 */
-	function getPatientFolloupTaskInfors(): mixed
-    {
-        try
-        {
-            return PatientFollowUpTaskInfo::all();
-        }
-        catch (\Exception $ex)
-        {
-            return $ex->getMessage();
-        }
-	}
 
     public function getPatientFollowupTaskReportData(): mixed
     {
