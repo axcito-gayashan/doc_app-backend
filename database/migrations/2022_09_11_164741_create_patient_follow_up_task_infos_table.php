@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('patient_follow_up_task_infos', function (Blueprint $table) {
-            $table->id('task_id');
+            $table->id();
             $table->bigInteger('mobile_number');
             $table->foreign('mobile_number')->references('mobile_number')->on('patients');
             $table->string('task_name');

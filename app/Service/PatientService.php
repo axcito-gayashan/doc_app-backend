@@ -635,32 +635,30 @@ class PatientService
 
     public function addPatientFolloupTaskInfor($request)
     {
-        // $task_infor = array(
-        //     'mobile_number' => $request['mobile_number'],
-        //     'task_id' => $request['task_id'],
-        //     'task_description' => $request['task_description'],
-        //     'new_strategy_calorie_option' => $request['new_strategy_calorie_option'],
-        //     'building_a_habit' => $request['building_a_habit'],
-        //     'dimensions_of_health' => $request['dimensions_of_health'],
-        //     'diagnosis' => $request['diagnosis'],
-        //     'other' => $request['other'],
-        // );
-        // $saved = $this->patientServiceInterface->addPatientFolloupTaskInfor($task_infor);
-        // if ($saved)
-        // {
-        //     return [
-        //         'status' => "Success"
-        //     ];
-        // }
-        // else
-        // {
-        //     return [
-        //         'status' => Constants::INVALID_PHONE_NUMBER
-        //     ];
-        // }
-        return [
-            'status' => Constants::INVALID_PHONE_NUMBER
-        ];
+        // $task_infor =  $request['taskdata'];
+        $mbile_infor =  array(
+            'mobile_number' => $request['mobile_number']
+        );
+        $task_infor = array_merge($mbile_infor, $request['taskdata']);
+        //dd($task_infor);
+        $diagnos_infor = $request['diagnosis'];
+        $rootcause_infor = $request['rootcause'];
+        $caloriein_infor = $request['caloriein'];
+        $calorieout_infor = $request['calorieout'];
+        $builingHabit_infor = $request['buildinghabit'];
+        $saved = $this->patientServiceInterface->addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $rootcause_infor, $caloriein_infor, $calorieout_infor, $builingHabit_infor);
+        if ($saved)
+        {
+            return [
+                'status' => "Success"
+            ];
+        }
+        else
+        {
+            return [
+                'status' => Constants::INVALID_PHONE_NUMBER
+            ];
+        }
     }
 
     public function getPatientFollowupTaskReportData()

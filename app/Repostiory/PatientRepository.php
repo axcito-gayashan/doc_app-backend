@@ -15,7 +15,12 @@ use App\Models\DoctorRecommendation;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
 use App\Models\PatientFollowUp;
+use App\Models\PatientFollowupTaskBuildingHabit;
+use App\Models\PatientFollowupTaskDiagnosis;
 use App\Models\PatientFollowUpTaskInfo;
+use App\Models\PatientFollowupTaskRootCause;
+use App\Models\PatientFollowupTaskStrategyCaloriein;
+use App\Models\PatientFollowupTaskStrategyCalorieout;
 use App\Models\PatientGoal;
 use App\Models\PatientMedicalRatio;
 use App\Models\PatientSocialDeterminantsOfHealth;
@@ -547,26 +552,82 @@ class PatientRepository implements PatientServiceInterface
 	 *
 	 * @return mixed
 	 */
-	public function addPatientFolloupTaskInfor($task_infor): mixed
+	public function addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $root_cause_infor, $caloirein_infor, $calorieout_infor, $building_habit_infor): mixed
     {
+        $count = 0;
         try
         {
             $patientExist = Patient::where('mobile_number', $task_infor['mobile_number'])->exists();
+
             if ($patientExist) {
-                // $pftask_infor = new PatientFollowUpTaskInfo();
-                // $pftask_infor->fill($task_infor);
-                // return $pftask_infor->save();
+                $pftask_infor = new PatientFollowUpTaskInfo();
+                $pftask_infor->fill($task_infor);
+                $result = $pftask_infor->save();
+                $last_task_id= $pftask_infor->id;
+                // ddesult =($result);
+                if ($result) {
+                    $count++;
+                }
+                // dd($last_task_id);
+                $taskid = array(
+                    'task_id' => $last_task_id
+                );
+                // dd($taskid);
+                $diagdat = array_merge($taskid, $diagnos_infor);
+                $diag_info = new PatientFollowupTaskDiagnosis();
+                $diag_info->fill($diagdat);
+                $result = $diag_info->save();
+                if($result) {
+                    $count++;
+                }
+
+                $rootdat = array_merge($taskid, $root_cause_infor);
+                $rootc_info = new PatientFollowupTaskRootCause();
+                $rootc_info->fill($rootdat);
+                $result = $rootc_info->save();
+                if($result) {
+                    $count++;
+                }
+
+                $calindat = array_merge($taskid, $caloirein_infor);
+                $calin_infor = new PatientFollowupTaskStrategyCaloriein();
+                $calin_infor->fill($calindat);
+                $result = $calin_infor->save();
+                if($result){
+                    $count++;
+                }
+
+                $caloutdat = array_merge($taskid, $calorieout_infor);
+                $calout_infor = new PatientFollowupTaskStrategyCalorieout();
+                $calout_infor->fill($caloutdat);
+                $result = $calout_infor->save();
+                if ($result) {
+                    $count++;
+                }
+
+                $buildat = array_merge($taskid, $building_habit_infor);
+                $build_infor = new PatientFollowupTaskBuildingHabit();
+                $build_infor->fill($buildat);
+                $result = $build_infor->save();
+                if ($result) {
+                    $count++;
+                }
+
+                if($count == 6) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
             else
             {
-                return Constants::PARENT_RECORD_DOES_NOT_EXIST;
+                return false;
             }
         }
         catch (\Exception $ex)
         {
-            return $ex->getMessage();
+            return false;
         }
-        return Constants::PARENT_RECORD_DOES_NOT_EXIST;
 	}
 
 

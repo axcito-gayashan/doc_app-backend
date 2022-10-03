@@ -123,7 +123,7 @@ interface PatientServiceInterface
 
     public function getPatientLastStatusResponsesByMobileNumber($mobile_number, $from_date, $to_date);
 
-    public function addPatientFolloupTaskInfor($task_infor): mixed;
+    public function addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $root_cause_infor, $caloirein_infor, $calorieout_infor, $building_habit_infor): mixed;
 
     public function getPatientFollowupTaskReportData(): mixed;
 }

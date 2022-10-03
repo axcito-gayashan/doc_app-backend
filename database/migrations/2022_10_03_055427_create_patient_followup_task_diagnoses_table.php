@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('patient_followup_task_diagnoses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('task_id');
-            $table->foreign('task_id')->references('task_id')->on('patient_follow_up_task_infos');
+            // $table->foreign('task_id')->references('task_id')->on('patient_follow_up_task_infos');
             $table->longText('consume_excess_sugar')->nullable();
             $table->longText('takeaway_foods')->nullable();
             $table->longText('restaurant_foods')->nullable();

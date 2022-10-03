@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('patient_followup_task_building_habits', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('task_id');
+            // $table->foreign('task_id')->references('task_id')->on('patient_follow_up_task_infos');
+            $table->longText('building_habit')->nullable();
+            // $table->timestamps();
         });
     }
 

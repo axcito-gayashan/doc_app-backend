@@ -9,6 +9,8 @@ class PatientFollowupTaskStrategyCalorieout extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'task_id',
         'calorie_out_exercise',

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('patient_followup_task_strategy_calorieins', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('task_id');
-            $table->foreign('task_id')->references('task_id')->on('patient_follow_up_task_infos');
+            // $table->foreign('task_id')->references('task_id')->on('patient_follow_up_task_infos');
             $table->longText('calorie_in_volume_size')->nullable();
             $table->longText('calorie_in_frequency')->nullable();
             $table->longText('calorie_in_content_sugar')->nullable();

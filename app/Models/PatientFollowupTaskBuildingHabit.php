@@ -9,6 +9,8 @@ class PatientFollowupTaskBuildingHabit extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'task_id',
         'building_habit'
