@@ -239,7 +239,7 @@ class PatientRepository implements PatientServiceInterface
             // $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth->toArray();
             // $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
             $patient3 = [];
-            if(Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth != null){
+            if (Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth != null) {
                 $patient3 = Patient::find($mobile_number)->getPatientSocialDeterminantsOfHealth->toArray();
             }
             // $patient4 = Patient::find($mobile_number)->getPatientTechnologicalLiteracy->toArray();
@@ -426,7 +426,7 @@ class PatientRepository implements PatientServiceInterface
                 RecommendedTasks::where(['mobile_number' => $data['mobile_number']])->update(
                     [
                         'recommended_tasks' => $data['recommended_tasks'],
-                        'previous_recommended_tasks' => $previousRecommendedTasks.$latestRecommendedTask
+                        'previous_recommended_tasks' => $previousRecommendedTasks . $latestRecommendedTask
                     ]
                 );
             } else {
@@ -452,7 +452,7 @@ class PatientRepository implements PatientServiceInterface
         }
     }
 
-    public function checkRecommendedTaskStatus($mobile_number,$patientRecommendedTask_1)
+    public function checkRecommendedTaskStatus($mobile_number, $patientRecommendedTask_1)
     {
         try {
             return PatientDailyStatus::where('mobile_number', $mobile_number)->where('recommended_task', $patientRecommendedTask_1)->get()->toArray();
@@ -488,7 +488,7 @@ class PatientRepository implements PatientServiceInterface
         try {
 //            dd(PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get());
 //            return PatientDailyStatus::select('how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
-            return PatientDailyStatus::select('recommended_task', 'how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where([['mobile_number', '=', $mobile_number], ['follow_rec', '=', 'Yes'],])->whereBetween('eval_date', [$from_date, $to_date])->get();
+            return PatientDailyStatus::select('recommended_task', 'how_much_did_you_enjoy_today', 'how_easy_it_was_the_goal_to_complete', 'how_fun_was_the_goal', 'complete_the_goal_tomorrow_rate')->where([['mobile_number', '=', $mobile_number], ['follow_rec', '=', 'Yes'],])->whereBetween('eval_date', [$from_date, $to_date])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -499,7 +499,7 @@ class PatientRepository implements PatientServiceInterface
         try {
 //            dd($mobile_number);
 //            dd(PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray());
-            return PatientDailyStatus::select('recommended_task','failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray();
+            return PatientDailyStatus::select('recommended_task', 'failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where('mobile_number', $mobile_number)->where('follow_rec', 'No')->get()->toArray();
 //            whereBetween('eval_date', [$from_date, $to_date])->where('failure_reason', 'No')->get()->toArray());
 //            return PatientDailyStatus::select('all')->where('mobile_number', $mobile_number)->whereBetween('eval_date', [$from_date, $to_date])->get();
         } catch (\Exception $e) {
@@ -507,11 +507,11 @@ class PatientRepository implements PatientServiceInterface
         }
     }
 
-    public function getAllPatientByFollowRec($from_date,$to_date, $follow_rec)
+    public function getAllPatientByFollowRec($from_date, $to_date, $follow_rec)
     {
         try {
             if ($follow_rec === 'Yes')
-                return PatientDailyStatus::select('eval_date', 'follow_rec', 'how_much_did_you_enjoy_today','how_easy_it_was_the_goal_to_complete','how_fun_was_the_goal','complete_the_goal_tomorrow_rate')->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->whereBetween('eval_date', [$from_date, $to_date])->get();
+                return PatientDailyStatus::select('eval_date', 'follow_rec', 'how_much_did_you_enjoy_today', 'how_easy_it_was_the_goal_to_complete', 'how_fun_was_the_goal', 'complete_the_goal_tomorrow_rate')->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->whereBetween('eval_date', [$from_date, $to_date])->get();
             else
                 return PatientDailyStatus::select('eval_date', 'follow_rec', 'failure_reason')->whereBetween('eval_date', [$from_date, $to_date])->where([['recommended_task', '!=', null], ['follow_rec', '=', $follow_rec],])->get();
         } catch (\Exception $e) {
@@ -528,8 +528,8 @@ class PatientRepository implements PatientServiceInterface
     {
         try {
             return VideoUrl::where('video_id', $vid_id)->get();
-        }catch (\Exception $exception){
-            return  $exception->getMessage();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
     }
 
@@ -546,24 +546,24 @@ class PatientRepository implements PatientServiceInterface
             return $e->getMessage();
         }
     }
-	/**
-	 *
-	 * @param mixed $task_infor
-	 *
-	 * @return mixed
-	 */
-	public function addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $root_cause_infor, $caloirein_infor, $calorieout_infor, $building_habit_infor): mixed
+
+    /**
+     *
+     * @param mixed $task_infor
+     *
+     * @return mixed
+     */
+    public function addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $root_cause_infor, $caloirein_infor, $calorieout_infor, $building_habit_infor): mixed
     {
         $count = 0;
-        try
-        {
+        try {
             $patientExist = Patient::where('mobile_number', $task_infor['mobile_number'])->exists();
 
             if ($patientExist) {
                 $pftask_infor = new PatientFollowUpTaskInfo();
                 $pftask_infor->fill($task_infor);
                 $result = $pftask_infor->save();
-                $last_task_id= $pftask_infor->id;
+                $last_task_id = $pftask_infor->id;
                 // ddesult =($result);
                 if ($result) {
                     $count++;
@@ -577,7 +577,7 @@ class PatientRepository implements PatientServiceInterface
                 $diag_info = new PatientFollowupTaskDiagnosis();
                 $diag_info->fill($diagdat);
                 $result = $diag_info->save();
-                if($result) {
+                if ($result) {
                     $count++;
                 }
 
@@ -585,7 +585,7 @@ class PatientRepository implements PatientServiceInterface
                 $rootc_info = new PatientFollowupTaskRootCause();
                 $rootc_info->fill($rootdat);
                 $result = $rootc_info->save();
-                if($result) {
+                if ($result) {
                     $count++;
                 }
 
@@ -593,7 +593,7 @@ class PatientRepository implements PatientServiceInterface
                 $calin_infor = new PatientFollowupTaskStrategyCaloriein();
                 $calin_infor->fill($calindat);
                 $result = $calin_infor->save();
-                if($result){
+                if ($result) {
                     $count++;
                 }
 
@@ -613,32 +613,46 @@ class PatientRepository implements PatientServiceInterface
                     $count++;
                 }
 
-                if($count == 6) {
+                if ($count == 6) {
                     return true;
                 } else {
                     return false;
                 }
-            }
-            else
-            {
+            } else {
                 return false;
             }
-        }
-        catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return false;
         }
-	}
+    }
 
 
     public function getPatientFollowupTaskReportData(): mixed
     {
-        try
-        {
+        try {
             return PatientFollowUp::join('patients', 'patient_follow_ups.mobile_number', '=', 'patients.mobile_number')->get(['patients.mobile_number', 'patients.first_name', 'patients.last_name', 'patient_follow_ups.recommendation_task1', 'patient_follow_ups.recommendation_task2']);
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
         }
-        catch (\Exception $ex)
-        {
+    }
+
+    public function getCountForRecTaskByMobileNumber($data)
+    {
+        try {
+
+        //yes count query
+        $queryYes = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'Yes')->get()->toArray();
+        $queryNo = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'No')->get()->toArray();
+
+        return response()->json([
+            'yesCount' => count($queryYes),
+            'noCount' => count($queryNo),
+            'followUp'=>false
+        ]);
+        //no count query
+
+
+        } catch (\Exception $ex) {
             return $ex->getMessage();
         }
     }

@@ -421,4 +421,12 @@ class PatientController extends Controller
     {
         return $this->patientService->getPatientFollowupTaskReportData();
     }
+
+    public function getCountForRecTaskByMobileNumber(Request $request)
+    {
+        $recTaskCount = $this->patientService->getCountForRecTaskByMobileNumber($request->all());
+
+        return $this->responseHelper->response('success', 'Recommended task count successfully retrieved', $recTaskCount->original, Response::HTTP_OK);
+    }
+
 }

@@ -68,4 +68,5 @@ Route::group([
     Route::post('/getPatientLastStatusResponsesByMobileNumber', [PatientController::class, 'getPatientLastStatusResponsesByMobileNumber']);
     Route::post('/addPatientFolloupTaskInfor', [PatientController::class, 'addPatientFolloupTaskInfor']);
     Route::get('/getPatientFollowupTaskReportData', [PatientController::class, 'getPatientFollowupTaskReportData']);
+    Route::post('/getCountForRecTaskByMobileNumber', [PatientController::class, 'getCountForRecTaskByMobileNumber']);
 });

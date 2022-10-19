@@ -126,4 +126,6 @@ interface PatientServiceInterface
     public function addPatientFolloupTaskInfor($task_infor, $diagnos_infor, $root_cause_infor, $caloirein_infor, $calorieout_infor, $building_habit_infor): mixed;
 
     public function getPatientFollowupTaskReportData(): mixed;
+
+    public function getCountForRecTaskByMobileNumber($data);
 }

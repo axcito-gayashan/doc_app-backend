@@ -624,7 +624,6 @@ class PatientService
         $mobile_number = $request['mobile_number'];
         $from_date = date($request['from_date']);
         $to_date = date($request['to_date']);
-        //        dd($from_date, $to_date, $follow_rec);
         $filteredValue = $this->patientServiceInterface->getPatientLastStatusResponsesByMobileNumber($mobile_number, $from_date, $to_date);
         if (count($filteredValue) > 0) {
             return $filteredValue;
@@ -664,5 +663,10 @@ class PatientService
     public function getPatientFollowupTaskReportData()
     {
         return $this->patientServiceInterface->getPatientFollowupTaskReportData();
+    }
+
+    public function getCountForRecTaskByMobileNumber($request)
+    {
+        return $this->patientServiceInterface->getCountForRecTaskByMobileNumber($request);
     }
 }
