@@ -643,13 +643,13 @@ class PatientRepository implements PatientServiceInterface
         //yes count query
         $queryYes = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'Yes')->get()->toArray();
         $queryNo = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'No')->get()->toArray();
+        $queryNa = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'Na')->get()->toArray();
 
-        return response()->json([
-            'yesCount' => count($queryYes),
-            'noCount' => count($queryNo),
-            'followUp'=>false
-        ]);
-        //no count query
+        return [
+           'queryYes' => $queryYes,
+           'queryNo' =>$queryNo,
+           'queryNa' =>$queryNa
+        ];
 
 
         } catch (\Exception $ex) {

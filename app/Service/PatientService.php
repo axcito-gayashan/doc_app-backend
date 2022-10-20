@@ -667,6 +667,15 @@ class PatientService
 
     public function getCountForRecTaskByMobileNumber($request)
     {
-        return $this->patientServiceInterface->getCountForRecTaskByMobileNumber($request);
+        $recTaskCountAll = $this->patientServiceInterface->getCountForRecTaskByMobileNumber($request);
+        return response()->json([
+            'yesCount' => count($recTaskCountAll['queryYes']),
+            'noCount' => count($recTaskCountAll['queryNo']),
+            'naCount' => count($recTaskCountAll['queryNa']),
+            'followUp'=>false,
+            'filledForFollowUp'=>false,
+            'submitWithComment'=>false
+        ]);
     }
+
 }
