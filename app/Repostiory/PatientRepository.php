@@ -12,6 +12,7 @@ namespace App\Repostiory;
 use App\Constants\Constants;
 use App\Models\Alert;
 use App\Models\DoctorRecommendation;
+use App\Models\FollowUpMeet;
 use App\Models\Patient;
 use App\Models\PatientDailyStatus;
 use App\Models\PatientFollowUp;
@@ -639,18 +640,23 @@ class PatientRepository implements PatientServiceInterface
     public function getCountForRecTaskByMobileNumber($data)
     {
         try {
-
         //yes count query
         $queryYes = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'Yes')->get()->toArray();
         $queryNo = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'No')->get()->toArray();
         $queryNa = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('follow_rec', 'Na')->get()->toArray();
 
+        $filledForFollowUp = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('filled_for_followup', 'Yes')->get()->toArray();
+        $submitWithComment = PatientDailyStatus::where('mobile_number', $data['mobile_number'])->where('recommended_task', $data['rec_task'])->where('submit_with_comments', 'Yes')->get()->toArray();
+        $followUpMeet = FollowUpMeet::where('mobile_number', $data['mobile_number'])->where('follow_up_meet', 'Yes')->get()->toArray();
+        
         return [
            'queryYes' => $queryYes,
            'queryNo' =>$queryNo,
-           'queryNa' =>$queryNa
+           'queryNa' =>$queryNa,
+           'followUpMeetInfo'=>count($followUpMeet),
+           'filledForFollowUp'=>count($filledForFollowUp),
+           'submitWithComment'=>count($submitWithComment)
         ];
-
 
         } catch (\Exception $ex) {
             return $ex->getMessage();

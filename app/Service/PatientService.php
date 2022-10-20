@@ -668,13 +668,14 @@ class PatientService
     public function getCountForRecTaskByMobileNumber($request)
     {
         $recTaskCountAll = $this->patientServiceInterface->getCountForRecTaskByMobileNumber($request);
+//        dd($recTaskCountAll);
         return response()->json([
             'yesCount' => count($recTaskCountAll['queryYes']),
             'noCount' => count($recTaskCountAll['queryNo']),
             'naCount' => count($recTaskCountAll['queryNa']),
-            'followUp'=>false,
-            'filledForFollowUp'=>false,
-            'submitWithComment'=>false
+            'followUp'=> ($recTaskCountAll['followUpMeetInfo']) == 1,
+            'filledForFollowUp'=> ($recTaskCountAll['filledForFollowUp']) == 1,
+            'submitWithComment'=> ($recTaskCountAll['submitWithComment']) == 1
         ]);
     }
 
